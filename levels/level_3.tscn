@@ -1,0 +1,157 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/components/whitebox_platform.gd" id="plat"]
+[ext_resource type="Script" path="res://scripts/components/spike_strip.gd" id="spike"]
+[ext_resource type="Script" path="res://scripts/components/water_zone.gd" id="water"]
+[ext_resource type="Script" path="res://scripts/moving_platform.gd" id="move"]
+[ext_resource type="Script" path="res://scripts/collapse_platform.gd" id="collapse"]
+[ext_resource type="Script" path="res://scripts/components/bounce_pad.gd" id="bounce"]
+[ext_resource type="Script" path="res://scripts/components/checkpoint.gd" id="checkpoint"]
+[ext_resource type="Script" path="res://scripts/components/exit_gate.gd" id="exit"]
+[ext_resource type="Script" path="res://scripts/components/stone.gd" id="stone"]
+[ext_resource type="Script" path="res://scripts/components/altar.gd" id="altar"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="enemy"]
+[ext_resource type="Script" path="res://scripts/components/start_view_box.gd" id="viewbox"]
+
+[node name="Level3" type="Node2D"]
+
+[node name="Route" type="Node2D" parent="."]
+
+[node name="Blocks" type="Node2D" parent="."]
+
+[node name="Hazards" type="Node2D" parent="."]
+
+[node name="Markers" type="Node2D" parent="."]
+
+[node name="Guides" type="Node2D" parent="."]
+
+[node name="Labels" type="Node2D" parent="."]
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="StartViewBox" type="Node2D" parent="Guides"]
+position = Vector2(0, 210)
+script = ExtResource("viewbox")
+size = Vector2(1120, 500)
+
+[node name="SpawnPoint" type="Marker2D" parent="Markers"]
+position = Vector2(120, 640)
+
+[node name="ReturnSpawnPoint" type="Marker2D" parent="Markers"]
+position = Vector2(2860, 210)
+
+[node name="Checkpoint" type="Area2D" parent="Markers"]
+position = Vector2(120, 640)
+script = ExtResource("checkpoint")
+
+[node name="ExitGate" type="Area2D" parent="Markers"]
+position = Vector2(3000, 190)
+script = ExtResource("exit")
+
+[node name="Route" type="Label" parent="Labels"]
+position = Vector2(60, 120)
+text = "Route: PPT7 森林三层交错；一周目只给A左移3次，主路线主要向右推进。"
+
+[node name="P_Start" type="StaticBody2D" parent="Blocks"]
+position = Vector2(0, 720)
+script = ExtResource("plat")
+size = Vector2(300, 36)
+
+[node name="P_Lower1" type="StaticBody2D" parent="Blocks"]
+position = Vector2(430, 680)
+script = ExtResource("plat")
+size = Vector2(280, 34)
+
+[node name="P_Lower2" type="StaticBody2D" parent="Blocks"]
+position = Vector2(840, 640)
+script = ExtResource("plat")
+size = Vector2(260, 34)
+
+[node name="P_MidBerry" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1180, 540)
+script = ExtResource("plat")
+size = Vector2(260, 34)
+
+[node name="P_Mid2" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1530, 500)
+script = ExtResource("plat")
+size = Vector2(240, 34)
+
+[node name="P_Mid3" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1900, 450)
+script = ExtResource("plat")
+size = Vector2(240, 34)
+
+[node name="P_Upper1" type="StaticBody2D" parent="Blocks"]
+position = Vector2(2230, 330)
+script = ExtResource("plat")
+size = Vector2(260, 34)
+
+[node name="P_Goal" type="StaticBody2D" parent="Blocks"]
+position = Vector2(2920, 270)
+script = ExtResource("plat")
+size = Vector2(240, 34)
+
+[node name="P_Stone" type="StaticBody2D" parent="Blocks"]
+position = Vector2(2460, 520)
+script = ExtResource("plat")
+size = Vector2(220, 34)
+
+[node name="W_LowerCurrent" type="Area2D" parent="Hazards"]
+position = Vector2(300, 735)
+script = ExtResource("water")
+size = Vector2(1200, 96)
+push_force = Vector2(120, 0)
+
+[node name="W_VerticalRisk" type="Area2D" parent="Hazards"]
+position = Vector2(2320, 360)
+script = ExtResource("water")
+size = Vector2(110, 300)
+push_force = Vector2(0, -100)
+
+[node name="S_Lower" type="Area2D" parent="Hazards"]
+position = Vector2(720, 622)
+script = ExtResource("spike")
+count = 3
+direction = "up"
+
+[node name="S_Mid" type="Area2D" parent="Hazards"]
+position = Vector2(1600, 442)
+script = ExtResource("spike")
+count = 2
+direction = "up"
+
+[node name="S_Vertical" type="Area2D" parent="Hazards"]
+position = Vector2(2440, 370)
+script = ExtResource("spike")
+count = 4
+direction = "left"
+
+[node name="M_ForestLift" type="AnimatableBody2D" parent="Blocks"]
+position = Vector2(1040, 610)
+script = ExtResource("move")
+size = Vector2(160, 28)
+offset = Vector2(0, -170)
+speed = 100.0
+color = Color(0.25, 0.9, 0.25)
+
+[node name="M_Cross" type="AnimatableBody2D" parent="Blocks"]
+position = Vector2(2060, 390)
+script = ExtResource("move")
+size = Vector2(170, 28)
+offset = Vector2(220, 0)
+speed = 105.0
+
+[node name="C_MidRisk" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1740, 515)
+script = ExtResource("collapse")
+size = Vector2(180, 28)
+
+[node name="Stone_ViewPoint" type="Area2D" parent="Markers"]
+position = Vector2(2540, 470)
+script = ExtResource("stone")
+kind = "stone"
+
+[node name="PPTTag" type="Label" parent="Labels"]
+position = Vector2(80, 300)
+text = "PPT7: bottom water/spikes, mid berry/risk, upper exit path, right-side stone"

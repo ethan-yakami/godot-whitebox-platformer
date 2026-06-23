@@ -1,0 +1,32 @@
+# Godot local/editor cache
+.godot/
+.import/
+
+# Godot build/export outputs
+export/
+exports/
+build/
+builds/
+*.pck
+*.zip
+*.exe
+*.apk
+*.aab
+*.ipa
+*.dmg
+*.app
+*.x86_64
+*.arm64
+
+# Logs and temp files
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+Thumbs.db
+Desktop.ini
+
+# IDE folders
+.vscode/
+.idea/

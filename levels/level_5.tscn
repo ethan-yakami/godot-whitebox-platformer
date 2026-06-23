@@ -1,0 +1,149 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/components/whitebox_platform.gd" id="plat"]
+[ext_resource type="Script" path="res://scripts/components/spike_strip.gd" id="spike"]
+[ext_resource type="Script" path="res://scripts/components/water_zone.gd" id="water"]
+[ext_resource type="Script" path="res://scripts/moving_platform.gd" id="move"]
+[ext_resource type="Script" path="res://scripts/collapse_platform.gd" id="collapse"]
+[ext_resource type="Script" path="res://scripts/components/bounce_pad.gd" id="bounce"]
+[ext_resource type="Script" path="res://scripts/components/checkpoint.gd" id="checkpoint"]
+[ext_resource type="Script" path="res://scripts/components/exit_gate.gd" id="exit"]
+[ext_resource type="Script" path="res://scripts/components/stone.gd" id="stone"]
+[ext_resource type="Script" path="res://scripts/components/altar.gd" id="altar"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="enemy"]
+[ext_resource type="Script" path="res://scripts/components/start_view_box.gd" id="viewbox"]
+
+[node name="Level5" type="Node2D"]
+
+[node name="Route" type="Node2D" parent="."]
+
+[node name="Blocks" type="Node2D" parent="."]
+
+[node name="Hazards" type="Node2D" parent="."]
+
+[node name="Markers" type="Node2D" parent="."]
+
+[node name="Guides" type="Node2D" parent="."]
+
+[node name="Labels" type="Node2D" parent="."]
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="StartViewBox" type="Node2D" parent="Guides"]
+position = Vector2(0, 210)
+script = ExtResource("viewbox")
+size = Vector2(1120, 500)
+
+[node name="SpawnPoint" type="Marker2D" parent="Markers"]
+position = Vector2(120, 650)
+
+[node name="ReturnSpawnPoint" type="Marker2D" parent="Markers"]
+position = Vector2(3560, 190)
+
+[node name="Checkpoint" type="Area2D" parent="Markers"]
+position = Vector2(120, 650)
+script = ExtResource("checkpoint")
+
+[node name="ExitGate" type="Area2D" parent="Markers"]
+position = Vector2(3720, 170)
+script = ExtResource("exit")
+
+[node name="Route" type="Label" parent="Labels"]
+position = Vector2(60, 120)
+text = "Route: PPT10 古塔；进入Boss平台解除一周目限制，击败后在献祭石拿传承与冲刺。"
+
+[node name="P_Start" type="StaticBody2D" parent="Blocks"]
+position = Vector2(0, 730)
+script = ExtResource("plat")
+size = Vector2(320, 36)
+
+[node name="P_LowCeiling_A" type="StaticBody2D" parent="Blocks"]
+position = Vector2(360, 620)
+script = ExtResource("plat")
+size = Vector2(240, 30)
+
+[node name="P_LowPath" type="StaticBody2D" parent="Blocks"]
+position = Vector2(520, 710)
+script = ExtResource("plat")
+size = Vector2(320, 34)
+
+[node name="P_MoveWait" type="StaticBody2D" parent="Blocks"]
+position = Vector2(930, 650)
+script = ExtResource("plat")
+size = Vector2(250, 34)
+
+[node name="P_BossArena" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1360, 500)
+script = ExtResource("plat")
+size = Vector2(760, 40)
+
+[node name="P_AfterBossStep1" type="StaticBody2D" parent="Blocks"]
+position = Vector2(2240, 560)
+script = ExtResource("plat")
+size = Vector2(220, 34)
+
+[node name="P_AfterBossStep2" type="StaticBody2D" parent="Blocks"]
+position = Vector2(2500, 470)
+script = ExtResource("plat")
+size = Vector2(220, 34)
+
+[node name="P_AltarSteps" type="StaticBody2D" parent="Blocks"]
+position = Vector2(2800, 390)
+script = ExtResource("plat")
+size = Vector2(220, 34)
+
+[node name="P_Altar" type="StaticBody2D" parent="Blocks"]
+position = Vector2(3300, 300)
+script = ExtResource("plat")
+size = Vector2(420, 36)
+
+[node name="W_BottomRedSlot" type="Area2D" parent="Hazards"]
+position = Vector2(360, 745)
+script = ExtResource("water")
+size = Vector2(900, 70)
+push_force = Vector2(0, 0)
+
+[node name="M_TowerBoard" type="AnimatableBody2D" parent="Blocks"]
+position = Vector2(760, 660)
+script = ExtResource("move")
+size = Vector2(170, 28)
+offset = Vector2(210, 0)
+speed = 105.0
+
+[node name="C_TowerPink" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1120, 600)
+script = ExtResource("collapse")
+size = Vector2(210, 28)
+
+[node name="legacy_boss" type="CharacterBody2D" parent="Actors"]
+position = Vector2(1700, 460)
+script = ExtResource("enemy")
+health = 10
+speed = 58.0
+patrol_distance = 260.0
+scale = Vector2(1.55, 1.55)
+
+[node name="S_BossPit" type="Area2D" parent="Hazards"]
+position = Vector2(1320, 442)
+script = ExtResource("spike")
+count = 3
+direction = "up"
+
+[node name="S_AltarTeeth" type="Area2D" parent="Hazards"]
+position = Vector2(3060, 332)
+script = ExtResource("spike")
+count = 3
+direction = "up"
+
+[node name="B_RecoveryPad" type="Area2D" parent="Blocks"]
+position = Vector2(2600, 450)
+script = ExtResource("bounce")
+
+[node name="Altar_Legacy" type="Area2D" parent="Markers"]
+position = Vector2(3470, 235)
+script = ExtResource("altar")
+altar_note = "Legacy"
+
+[node name="PPTTag" type="Label" parent="Labels"]
+position = Vector2(80, 300)
+text = "PPT10: low ceiling/danger slot -> boss arena -> stepped altar area"

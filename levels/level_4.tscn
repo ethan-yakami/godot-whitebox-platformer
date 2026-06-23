@@ -1,0 +1,156 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/components/whitebox_platform.gd" id="plat"]
+[ext_resource type="Script" path="res://scripts/components/spike_strip.gd" id="spike"]
+[ext_resource type="Script" path="res://scripts/components/water_zone.gd" id="water"]
+[ext_resource type="Script" path="res://scripts/moving_platform.gd" id="move"]
+[ext_resource type="Script" path="res://scripts/collapse_platform.gd" id="collapse"]
+[ext_resource type="Script" path="res://scripts/components/bounce_pad.gd" id="bounce"]
+[ext_resource type="Script" path="res://scripts/components/checkpoint.gd" id="checkpoint"]
+[ext_resource type="Script" path="res://scripts/components/exit_gate.gd" id="exit"]
+[ext_resource type="Script" path="res://scripts/components/stone.gd" id="stone"]
+[ext_resource type="Script" path="res://scripts/components/altar.gd" id="altar"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="enemy"]
+[ext_resource type="Script" path="res://scripts/components/start_view_box.gd" id="viewbox"]
+
+[node name="Level4" type="Node2D"]
+
+[node name="Route" type="Node2D" parent="."]
+
+[node name="Blocks" type="Node2D" parent="."]
+
+[node name="Hazards" type="Node2D" parent="."]
+
+[node name="Markers" type="Node2D" parent="."]
+
+[node name="Guides" type="Node2D" parent="."]
+
+[node name="Labels" type="Node2D" parent="."]
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="StartViewBox" type="Node2D" parent="Guides"]
+position = Vector2(0, 210)
+script = ExtResource("viewbox")
+size = Vector2(1120, 500)
+
+[node name="SpawnPoint" type="Marker2D" parent="Markers"]
+position = Vector2(120, 640)
+
+[node name="ReturnSpawnPoint" type="Marker2D" parent="Markers"]
+position = Vector2(3420, 190)
+
+[node name="Checkpoint" type="Area2D" parent="Markers"]
+position = Vector2(120, 640)
+script = ExtResource("checkpoint")
+
+[node name="ExitGate" type="Area2D" parent="Markers"]
+position = Vector2(3580, 160)
+script = ExtResource("exit")
+
+[node name="Route" type="Label" parent="Labels"]
+position = Vector2(60, 120)
+text = "Route: PPT8-9 溶洞两段；先到石碑解锁攻击，再过敌人与竖井到右上终点。"
+
+[node name="P_Start" type="StaticBody2D" parent="Blocks"]
+position = Vector2(0, 720)
+script = ExtResource("plat")
+size = Vector2(330, 36)
+
+[node name="P_LongSpikePrep" type="StaticBody2D" parent="Blocks"]
+position = Vector2(430, 670)
+script = ExtResource("plat")
+size = Vector2(330, 34)
+
+[node name="P_StoneBase" type="StaticBody2D" parent="Blocks"]
+position = Vector2(900, 610)
+script = ExtResource("plat")
+size = Vector2(320, 34)
+
+[node name="P_AfterStone" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1320, 560)
+script = ExtResource("plat")
+size = Vector2(280, 34)
+
+[node name="P_BattleFloor" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1720, 650)
+script = ExtResource("plat")
+size = Vector2(520, 36)
+
+[node name="P_ShaftLeft" type="StaticBody2D" parent="Blocks"]
+position = Vector2(2360, 520)
+script = ExtResource("plat")
+size = Vector2(220, 34)
+
+[node name="P_ShaftTop" type="StaticBody2D" parent="Blocks"]
+position = Vector2(2680, 360)
+script = ExtResource("plat")
+size = Vector2(220, 34)
+
+[node name="P_FinalMoveLand" type="StaticBody2D" parent="Blocks"]
+position = Vector2(3060, 280)
+script = ExtResource("plat")
+size = Vector2(220, 34)
+
+[node name="P_Goal" type="StaticBody2D" parent="Blocks"]
+position = Vector2(3520, 230)
+script = ExtResource("plat")
+size = Vector2(230, 34)
+
+[node name="S_LongSpikeBelt" type="Area2D" parent="Hazards"]
+position = Vector2(520, 612)
+script = ExtResource("spike")
+count = 5
+direction = "up"
+
+[node name="W_RedDangerSlot" type="Area2D" parent="Hazards"]
+position = Vector2(1180, 690)
+script = ExtResource("water")
+size = Vector2(760, 72)
+push_force = Vector2(0, 0)
+
+[node name="Stone_AttackUnlock" type="Area2D" parent="Markers"]
+position = Vector2(1030, 540)
+script = ExtResource("stone")
+kind = "stone"
+
+[node name="Enemy_BlackBall_A" type="CharacterBody2D" parent="Actors"]
+position = Vector2(1820, 610)
+script = ExtResource("enemy")
+health = 4
+patrol_distance = 180.0
+
+[node name="Enemy_BlackBall_B" type="CharacterBody2D" parent="Actors"]
+position = Vector2(2100, 610)
+script = ExtResource("enemy")
+health = 4
+patrol_distance = 140.0
+
+[node name="W_VerticalColumn" type="Area2D" parent="Hazards"]
+position = Vector2(2440, 300)
+script = ExtResource("water")
+size = Vector2(110, 300)
+push_force = Vector2(0, -120)
+
+[node name="S_SideLeft" type="Area2D" parent="Hazards"]
+position = Vector2(2580, 360)
+script = ExtResource("spike")
+count = 5
+direction = "left"
+
+[node name="M_FinalLift" type="AnimatableBody2D" parent="Blocks"]
+position = Vector2(2920, 430)
+script = ExtResource("move")
+size = Vector2(170, 28)
+offset = Vector2(0, -190)
+speed = 100.0
+
+[node name="W_FinalRedSlot" type="Area2D" parent="Hazards"]
+position = Vector2(3120, 560)
+script = ExtResource("water")
+size = Vector2(420, 70)
+push_force = Vector2(0, 0)
+
+[node name="PPTTag" type="Label" parent="Labels"]
+position = Vector2(80, 300)
+text = "PPT8-9: stone unlocks J attack; second half has enemies, shaft, side spikes"

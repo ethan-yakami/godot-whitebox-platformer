@@ -1,0 +1,152 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/components/whitebox_platform.gd" id="plat"]
+[ext_resource type="Script" path="res://scripts/components/spike_strip.gd" id="spike"]
+[ext_resource type="Script" path="res://scripts/components/water_zone.gd" id="water"]
+[ext_resource type="Script" path="res://scripts/moving_platform.gd" id="move"]
+[ext_resource type="Script" path="res://scripts/collapse_platform.gd" id="collapse"]
+[ext_resource type="Script" path="res://scripts/components/bounce_pad.gd" id="bounce"]
+[ext_resource type="Script" path="res://scripts/components/checkpoint.gd" id="checkpoint"]
+[ext_resource type="Script" path="res://scripts/components/exit_gate.gd" id="exit"]
+[ext_resource type="Script" path="res://scripts/components/stone.gd" id="stone"]
+[ext_resource type="Script" path="res://scripts/components/altar.gd" id="altar"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="enemy"]
+[ext_resource type="Script" path="res://scripts/components/start_view_box.gd" id="viewbox"]
+
+[node name="Level2" type="Node2D"]
+
+[node name="Route" type="Node2D" parent="."]
+
+[node name="Blocks" type="Node2D" parent="."]
+
+[node name="Hazards" type="Node2D" parent="."]
+
+[node name="Markers" type="Node2D" parent="."]
+
+[node name="Guides" type="Node2D" parent="."]
+
+[node name="Labels" type="Node2D" parent="."]
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="StartViewBox" type="Node2D" parent="Guides"]
+position = Vector2(0, 210)
+script = ExtResource("viewbox")
+size = Vector2(1120, 500)
+
+[node name="SpawnPoint" type="Marker2D" parent="Markers"]
+position = Vector2(120, 560)
+
+[node name="ReturnSpawnPoint" type="Marker2D" parent="Markers"]
+position = Vector2(3180, 310)
+
+[node name="Checkpoint" type="Area2D" parent="Markers"]
+position = Vector2(120, 560)
+script = ExtResource("checkpoint")
+
+[node name="ExitGate" type="Area2D" parent="Markers"]
+position = Vector2(3300, 280)
+script = ExtResource("exit")
+
+[node name="Route" type="Label" parent="Labels"]
+position = Vector2(60, 120)
+text = "Route: PPT5-6 湖泊长关，底部水流提供压力；9次跳跃走移动平台主线。"
+
+[node name="P_Start" type="StaticBody2D" parent="Blocks"]
+position = Vector2(0, 650)
+script = ExtResource("plat")
+size = Vector2(320, 36)
+
+[node name="P_LeftBank" type="StaticBody2D" parent="Blocks"]
+position = Vector2(420, 620)
+script = ExtResource("plat")
+size = Vector2(250, 34)
+
+[node name="P_MidBank" type="StaticBody2D" parent="Blocks"]
+position = Vector2(920, 560)
+script = ExtResource("plat")
+size = Vector2(240, 34)
+
+[node name="P_Upper1" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1360, 470)
+script = ExtResource("plat")
+size = Vector2(240, 34)
+
+[node name="P_Check" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1780, 520)
+script = ExtResource("plat")
+size = Vector2(260, 34)
+
+[node name="P_Upper2" type="StaticBody2D" parent="Blocks"]
+position = Vector2(2240, 430)
+script = ExtResource("plat")
+size = Vector2(260, 34)
+
+[node name="P_FinalWall" type="StaticBody2D" parent="Blocks"]
+position = Vector2(2960, 360)
+script = ExtResource("plat")
+size = Vector2(220, 34)
+
+[node name="P_Goal" type="StaticBody2D" parent="Blocks"]
+position = Vector2(3240, 350)
+script = ExtResource("plat")
+size = Vector2(220, 34)
+
+[node name="W_MainLake" type="Area2D" parent="Hazards"]
+position = Vector2(320, 690)
+script = ExtResource("water")
+size = Vector2(2300, 120)
+push_force = Vector2(145, 0)
+
+[node name="W_UpperStream" type="Area2D" parent="Hazards"]
+position = Vector2(1160, 560)
+script = ExtResource("water")
+size = Vector2(760, 92)
+push_force = Vector2(130, 0)
+
+[node name="M_Dashed1" type="AnimatableBody2D" parent="Blocks"]
+position = Vector2(720, 560)
+script = ExtResource("move")
+size = Vector2(160, 28)
+offset = Vector2(210, 0)
+speed = 110.0
+
+[node name="M_GreenLift" type="AnimatableBody2D" parent="Blocks"]
+position = Vector2(1160, 500)
+script = ExtResource("move")
+size = Vector2(160, 28)
+offset = Vector2(0, -170)
+speed = 95.0
+color = Color(0.25, 0.9, 0.25)
+
+[node name="M_OrangeBridge" type="AnimatableBody2D" parent="Blocks"]
+position = Vector2(2040, 500)
+script = ExtResource("move")
+size = Vector2(180, 28)
+offset = Vector2(240, 0)
+speed = 115.0
+
+[node name="C_PinkEnd" type="StaticBody2D" parent="Blocks"]
+position = Vector2(2600, 430)
+script = ExtResource("collapse")
+size = Vector2(220, 28)
+
+[node name="B_WaterRecovery" type="Area2D" parent="Blocks"]
+position = Vector2(1540, 620)
+script = ExtResource("bounce")
+
+[node name="S_WaterTeeth" type="Area2D" parent="Hazards"]
+position = Vector2(650, 632)
+script = ExtResource("spike")
+count = 3
+direction = "up"
+
+[node name="S_FinalWall" type="Area2D" parent="Hazards"]
+position = Vector2(2890, 305)
+script = ExtResource("spike")
+count = 3
+direction = "left"
+
+[node name="PPTTag" type="Label" parent="Labels"]
+position = Vector2(90, 290)
+text = "PPT5-6: two lake pages merged; moving boards form stable main route"

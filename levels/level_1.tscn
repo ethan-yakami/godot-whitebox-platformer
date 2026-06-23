@@ -1,0 +1,114 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/components/whitebox_platform.gd" id="plat"]
+[ext_resource type="Script" path="res://scripts/components/spike_strip.gd" id="spike"]
+[ext_resource type="Script" path="res://scripts/components/water_zone.gd" id="water"]
+[ext_resource type="Script" path="res://scripts/moving_platform.gd" id="move"]
+[ext_resource type="Script" path="res://scripts/collapse_platform.gd" id="collapse"]
+[ext_resource type="Script" path="res://scripts/components/bounce_pad.gd" id="bounce"]
+[ext_resource type="Script" path="res://scripts/components/checkpoint.gd" id="checkpoint"]
+[ext_resource type="Script" path="res://scripts/components/exit_gate.gd" id="exit"]
+[ext_resource type="Script" path="res://scripts/components/stone.gd" id="stone"]
+[ext_resource type="Script" path="res://scripts/components/altar.gd" id="altar"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="enemy"]
+[ext_resource type="Script" path="res://scripts/components/start_view_box.gd" id="viewbox"]
+
+[node name="Level1" type="Node2D"]
+
+[node name="Route" type="Node2D" parent="."]
+
+[node name="Blocks" type="Node2D" parent="."]
+
+[node name="Hazards" type="Node2D" parent="."]
+
+[node name="Markers" type="Node2D" parent="."]
+
+[node name="Guides" type="Node2D" parent="."]
+
+[node name="Labels" type="Node2D" parent="."]
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="StartViewBox" type="Node2D" parent="Guides"]
+position = Vector2(0, 210)
+script = ExtResource("viewbox")
+size = Vector2(1120, 500)
+
+[node name="SpawnPoint" type="Marker2D" parent="Markers"]
+position = Vector2(120, 560)
+
+[node name="ReturnSpawnPoint" type="Marker2D" parent="Markers"]
+position = Vector2(2000, 340)
+
+[node name="Checkpoint" type="Area2D" parent="Markers"]
+position = Vector2(120, 560)
+script = ExtResource("checkpoint")
+
+[node name="ExitGate" type="Area2D" parent="Markers"]
+position = Vector2(2120, 320)
+script = ExtResource("exit")
+
+[node name="Route" type="Label" parent="Labels"]
+position = Vector2(60, 120)
+text = "Route: PPT4 草原新手关，5次跳跃内走主路线；弹跳垫辅助终点高台。"
+
+[node name="P_Start" type="StaticBody2D" parent="Blocks"]
+position = Vector2(0, 650)
+script = ExtResource("plat")
+size = Vector2(300, 36)
+
+[node name="P_PitLanding" type="StaticBody2D" parent="Blocks"]
+position = Vector2(390, 650)
+script = ExtResource("plat")
+size = Vector2(300, 36)
+
+[node name="P_LowStep" type="StaticBody2D" parent="Blocks"]
+position = Vector2(820, 610)
+script = ExtResource("plat")
+size = Vector2(280, 36)
+
+[node name="P_HighStep" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1120, 490)
+script = ExtResource("plat")
+size = Vector2(250, 36)
+
+[node name="P_Landing" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1720, 520)
+script = ExtResource("plat")
+size = Vector2(280, 36)
+
+[node name="P_Goal" type="StaticBody2D" parent="Blocks"]
+position = Vector2(2070, 410)
+script = ExtResource("plat")
+size = Vector2(180, 36)
+
+[node name="C_PinkBridge" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1450, 430)
+script = ExtResource("collapse")
+size = Vector2(260, 30)
+
+[node name="B_GoalAssist" type="Area2D" parent="Blocks"]
+position = Vector2(1660, 500)
+script = ExtResource("bounce")
+
+[node name="S_StartPit" type="Area2D" parent="Hazards"]
+position = Vector2(500, 592)
+script = ExtResource("spike")
+count = 2
+direction = "up"
+
+[node name="S_MidBlue" type="Area2D" parent="Hazards"]
+position = Vector2(930, 552)
+script = ExtResource("spike")
+count = 1
+direction = "up"
+
+[node name="S_LateBlue" type="Area2D" parent="Hazards"]
+position = Vector2(1810, 462)
+script = ExtResource("spike")
+count = 2
+direction = "up"
+
+[node name="PPTTag" type="Label" parent="Labels"]
+position = Vector2(80, 300)
+text = "PPT4: low platforms -> spike pit -> pink collapse -> blue spikes -> exit"
