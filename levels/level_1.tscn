@@ -30,85 +30,132 @@
 [node name="Actors" type="Node2D" parent="."]
 
 [node name="StartViewBox" type="Node2D" parent="Guides"]
-position = Vector2(0, 210)
+position = Vector2(0, 260)
 script = ExtResource("viewbox")
-size = Vector2(1120, 500)
+size = Vector2(1200, 520)
 
 [node name="SpawnPoint" type="Marker2D" parent="Markers"]
-position = Vector2(120, 560)
+position = Vector2(120, 632)
 
 [node name="ReturnSpawnPoint" type="Marker2D" parent="Markers"]
-position = Vector2(2000, 340)
+position = Vector2(2410, 350)
 
 [node name="Checkpoint" type="Area2D" parent="Markers"]
-position = Vector2(120, 560)
+position = Vector2(120, 632)
 script = ExtResource("checkpoint")
 
 [node name="ExitGate" type="Area2D" parent="Markers"]
-position = Vector2(2120, 320)
+position = Vector2(2510, 430)
 script = ExtResource("exit")
 
 [node name="Route" type="Label" parent="Labels"]
 position = Vector2(60, 120)
-text = "Route: PPT4 草原新手关，5次跳跃内走主路线；弹跳垫辅助终点高台。"
+text = "Route: PPT4/user mark. J1 low float, J2 pink step, J3 mid pink, J4 air jump under blocker, J5 exit. jump x5."
 
 [node name="P_Start" type="StaticBody2D" parent="Blocks"]
-position = Vector2(0, 650)
+position = Vector2(0, 720)
 script = ExtResource("plat")
-size = Vector2(300, 36)
+size = Vector2(285, 38)
 
-[node name="P_PitLanding" type="StaticBody2D" parent="Blocks"]
-position = Vector2(390, 650)
+[node name="P_PitWithSpikes" type="StaticBody2D" parent="Blocks"]
+position = Vector2(420, 720)
 script = ExtResource("plat")
-size = Vector2(300, 36)
+size = Vector2(345, 38)
 
-[node name="P_LowStep" type="StaticBody2D" parent="Blocks"]
-position = Vector2(820, 610)
+[node name="P_SingleSpikeLand" type="StaticBody2D" parent="Blocks"]
+position = Vector2(925, 720)
 script = ExtResource("plat")
-size = Vector2(280, 36)
+size = Vector2(300, 38)
 
-[node name="P_HighStep" type="StaticBody2D" parent="Blocks"]
-position = Vector2(1120, 490)
+[node name="P_TallDanger" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1600, 525)
 script = ExtResource("plat")
-size = Vector2(250, 36)
+size = Vector2(345, 38)
 
-[node name="P_Landing" type="StaticBody2D" parent="Blocks"]
-position = Vector2(1720, 520)
+[node name="P_Exit" type="StaticBody2D" parent="Blocks"]
+position = Vector2(2260, 525)
 script = ExtResource("plat")
-size = Vector2(280, 36)
+size = Vector2(260, 38)
 
-[node name="P_Goal" type="StaticBody2D" parent="Blocks"]
-position = Vector2(2070, 410)
-script = ExtResource("plat")
-size = Vector2(180, 36)
+[node name="HZ_RedPit_A" type="Area2D" parent="Hazards"]
+position = Vector2(285, 736)
+script = ExtResource("water")
+size = Vector2(135, 48)
+push_force = Vector2(0, 0)
 
-[node name="C_PinkBridge" type="StaticBody2D" parent="Blocks"]
-position = Vector2(1450, 430)
-script = ExtResource("collapse")
-size = Vector2(260, 30)
+[node name="HZ_RedPit_B" type="Area2D" parent="Hazards"]
+position = Vector2(765, 736)
+script = ExtResource("water")
+size = Vector2(160, 48)
+push_force = Vector2(0, 0)
 
-[node name="B_GoalAssist" type="Area2D" parent="Blocks"]
-position = Vector2(1660, 500)
-script = ExtResource("bounce")
+[node name="HZ_RedPit_C" type="Area2D" parent="Hazards"]
+position = Vector2(1225, 736)
+script = ExtResource("water")
+size = Vector2(375, 48)
+push_force = Vector2(0, 0)
 
-[node name="S_StartPit" type="Area2D" parent="Hazards"]
-position = Vector2(500, 592)
+[node name="HZ_RedPit_D" type="Area2D" parent="Hazards"]
+position = Vector2(1945, 736)
+script = ExtResource("water")
+size = Vector2(315, 48)
+push_force = Vector2(0, 0)
+
+[node name="S_TutorialPair" type="Area2D" parent="Hazards"]
+position = Vector2(495, 662)
 script = ExtResource("spike")
 count = 2
 direction = "up"
 
-[node name="S_MidBlue" type="Area2D" parent="Hazards"]
-position = Vector2(930, 552)
+[node name="S_SingleBeforeCheckpoint" type="Area2D" parent="Hazards"]
+position = Vector2(970, 662)
 script = ExtResource("spike")
 count = 1
 direction = "up"
 
-[node name="S_LateBlue" type="Area2D" parent="Hazards"]
-position = Vector2(1810, 462)
+[node name="S_TallPlatformPair" type="Area2D" parent="Hazards"]
+position = Vector2(1625, 467)
 script = ExtResource("spike")
 count = 2
 direction = "up"
 
+[node name="J1_ToLowFloat" type="StaticBody2D" parent="Blocks"]
+position = Vector2(420, 585)
+script = ExtResource("plat")
+size = Vector2(155, 34)
+
+[node name="J2_ToPinkStep" type="StaticBody2D" parent="Blocks"]
+position = Vector2(835, 505)
+script = ExtResource("collapse")
+size = Vector2(160, 30)
+collapse_delay = 0.45
+
+[node name="J3_ToMidPink" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1215, 420)
+script = ExtResource("collapse")
+size = Vector2(290, 30)
+collapse_delay = 0.45
+
+[node name="J4_AirJumpBlocker" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1735, 315)
+script = ExtResource("plat")
+size = Vector2(310, 34)
+color = Color(0.78, 0.78, 0.78, 1.0)
+
+[node name="J4_LandingAfterAirJump" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1600, 525)
+script = ExtResource("plat")
+size = Vector2(345, 38)
+
+[node name="J5_ToExit" type="StaticBody2D" parent="Blocks"]
+position = Vector2(2260, 525)
+script = ExtResource("plat")
+size = Vector2(260, 38)
+
+[node name="JumpPlan" type="Label" parent="Labels"]
+position = Vector2(80, 205)
+text = "1:J1 low float | 2:J2 pink | 3:J3 mid pink | 4:air jump below overhead blocker | 5:exit"
+
 [node name="PPTTag" type="Label" parent="Labels"]
-position = Vector2(80, 300)
-text = "PPT4: low platforms -> spike pit -> pink collapse -> blue spikes -> exit"
+position = Vector2(80, 245)
+text = "First level is not to scale from PPT; positions are tuned for 5 jumps and J4 air jump difficulty."

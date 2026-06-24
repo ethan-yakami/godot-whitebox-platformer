@@ -63,6 +63,22 @@ def main() -> int:
             "ExitGate",
             "Route",
         ])
+    failures += require("levels/level_1.tscn", [
+        "J1_ToLowFloat",
+        "J2_ToPinkStep",
+        "J3_ToMidPink",
+        "J4_AirJumpBlocker",
+        "J5_ToExit",
+        "air jump",
+    ])
+    failures += require("levels/level_2.tscn", [
+        "Scene1",
+        "Scene2",
+        "DropMomentum",
+        "NoJumpGlide",
+        "J9_FinalClimb",
+        "inertia",
+    ])
     for component in [
         "whitebox_platform",
         "spike_strip",

@@ -30,123 +30,210 @@
 [node name="Actors" type="Node2D" parent="."]
 
 [node name="StartViewBox" type="Node2D" parent="Guides"]
-position = Vector2(0, 210)
+position = Vector2(0, 20)
 script = ExtResource("viewbox")
-size = Vector2(1120, 500)
+size = Vector2(1250, 380)
 
 [node name="SpawnPoint" type="Marker2D" parent="Markers"]
-position = Vector2(120, 560)
+position = Vector2(120, 430)
 
 [node name="ReturnSpawnPoint" type="Marker2D" parent="Markers"]
-position = Vector2(3180, 310)
+position = Vector2(3470, 300)
 
 [node name="Checkpoint" type="Area2D" parent="Markers"]
-position = Vector2(120, 560)
+position = Vector2(120, 430)
 script = ExtResource("checkpoint")
 
 [node name="ExitGate" type="Area2D" parent="Markers"]
-position = Vector2(3300, 280)
+position = Vector2(3600, 290)
 script = ExtResource("exit")
 
 [node name="Route" type="Label" parent="Labels"]
 position = Vector2(60, 120)
-text = "Route: PPT5-6 湖泊长关，底部水流提供压力；9次跳跃走移动平台主线。"
+text = "Route: PPT5-6/user mark. Scene1 and Scene2 merged; not every segment consumes jump. Use drop/inertia/water push, jump x9 budget."
 
-[node name="P_Start" type="StaticBody2D" parent="Blocks"]
-position = Vector2(0, 650)
+[node name="Scene1" type="Node2D" parent="Guides"]
+position = Vector2(0, 0)
+
+[node name="Scene2" type="Node2D" parent="Guides"]
+position = Vector2(1300, 0)
+
+[node name="S1_StartHigh" type="StaticBody2D" parent="Blocks"]
+position = Vector2(0, 470)
 script = ExtResource("plat")
-size = Vector2(320, 36)
+size = Vector2(190, 36)
 
-[node name="P_LeftBank" type="StaticBody2D" parent="Blocks"]
-position = Vector2(420, 620)
+[node name="S1_LowStep" type="StaticBody2D" parent="Blocks"]
+position = Vector2(350, 535)
 script = ExtResource("plat")
-size = Vector2(250, 34)
+size = Vector2(175, 30)
 
-[node name="P_MidBank" type="StaticBody2D" parent="Blocks"]
-position = Vector2(920, 560)
+[node name="S1_FloatSmall" type="StaticBody2D" parent="Blocks"]
+position = Vector2(730, 475)
 script = ExtResource("plat")
-size = Vector2(240, 34)
+size = Vector2(110, 28)
 
-[node name="P_Upper1" type="StaticBody2D" parent="Blocks"]
-position = Vector2(1360, 470)
+[node name="S1_PinkRecovery" type="StaticBody2D" parent="Blocks"]
+position = Vector2(500, 690)
 script = ExtResource("plat")
-size = Vector2(240, 34)
+size = Vector2(240, 30)
 
-[node name="P_Check" type="StaticBody2D" parent="Blocks"]
-position = Vector2(1780, 520)
+[node name="S1_StarPerch" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1880, 135)
 script = ExtResource("plat")
-size = Vector2(260, 34)
+size = Vector2(170, 28)
 
-[node name="P_Upper2" type="StaticBody2D" parent="Blocks"]
-position = Vector2(2240, 430)
+[node name="S1_EndTiny" type="StaticBody2D" parent="Blocks"]
+position = Vector2(985, 430)
 script = ExtResource("plat")
-size = Vector2(260, 34)
+size = Vector2(100, 26)
 
-[node name="P_FinalWall" type="StaticBody2D" parent="Blocks"]
-position = Vector2(2960, 360)
+[node name="S1_DropMomentum" type="StaticBody2D" parent="Blocks"]
+position = Vector2(510, 690)
+script = ExtResource("collapse")
+size = Vector2(240, 30)
+collapse_delay = 0.55
+
+[node name="S1_GreenMoveHigh" type="AnimatableBody2D" parent="Blocks"]
+position = Vector2(1180, 505)
+script = ExtResource("move")
+size = Vector2(230, 28)
+offset = Vector2(260, 0)
+speed = 95.0
+color = Color(0.45, 1.0, 0.25, 1.0)
+
+[node name="S1_GreenMoveLow" type="AnimatableBody2D" parent="Blocks"]
+position = Vector2(1585, 620)
+script = ExtResource("move")
+size = Vector2(230, 28)
+offset = Vector2(260, 0)
+speed = 100.0
+color = Color(0.45, 1.0, 0.25, 1.0)
+
+[node name="S1_NoJumpGlide_Landing" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1835, 610)
 script = ExtResource("plat")
-size = Vector2(220, 34)
+size = Vector2(130, 28)
 
-[node name="P_Goal" type="StaticBody2D" parent="Blocks"]
-position = Vector2(3240, 350)
+[node name="S2_StartStep" type="StaticBody2D" parent="Blocks"]
+position = Vector2(2160, 560)
 script = ExtResource("plat")
-size = Vector2(220, 34)
+size = Vector2(190, 34)
 
-[node name="W_MainLake" type="Area2D" parent="Hazards"]
-position = Vector2(320, 690)
+[node name="S2_LeftWall" type="StaticBody2D" parent="Blocks"]
+position = Vector2(2265, 365)
+script = ExtResource("plat")
+size = Vector2(55, 230)
+
+[node name="S2_TopFromWall" type="StaticBody2D" parent="Blocks"]
+position = Vector2(2320, 365)
+script = ExtResource("plat")
+size = Vector2(175, 30)
+
+[node name="S2_TinyMid" type="StaticBody2D" parent="Blocks"]
+position = Vector2(2570, 455)
+script = ExtResource("plat")
+size = Vector2(120, 26)
+
+[node name="S2_EndWall" type="StaticBody2D" parent="Blocks"]
+position = Vector2(3420, 420)
+script = ExtResource("plat")
+size = Vector2(220, 240)
+
+[node name="S2_ExitTop" type="StaticBody2D" parent="Blocks"]
+position = Vector2(3520, 335)
+script = ExtResource("plat")
+size = Vector2(130, 34)
+
+[node name="S2_OrangeInWater" type="AnimatableBody2D" parent="Blocks"]
+position = Vector2(2450, 665)
+script = ExtResource("move")
+size = Vector2(260, 30)
+offset = Vector2(260, 0)
+speed = 105.0
+
+[node name="S2_GreenHigh" type="AnimatableBody2D" parent="Blocks"]
+position = Vector2(2860, 455)
+script = ExtResource("move")
+size = Vector2(145, 26)
+offset = Vector2(190, 0)
+speed = 100.0
+color = Color(0.45, 1.0, 0.25, 1.0)
+
+[node name="S2_GreenMid" type="AnimatableBody2D" parent="Blocks"]
+position = Vector2(3010, 575)
+script = ExtResource("move")
+size = Vector2(235, 28)
+offset = Vector2(230, 0)
+speed = 95.0
+color = Color(0.45, 1.0, 0.25, 1.0)
+
+[node name="S2_PinkSave" type="StaticBody2D" parent="Blocks"]
+position = Vector2(3240, 700)
+script = ExtResource("collapse")
+size = Vector2(170, 28)
+collapse_delay = 0.55
+
+[node name="W_MainWater" type="Area2D" parent="Hazards"]
+position = Vector2(0, 725)
 script = ExtResource("water")
-size = Vector2(2300, 120)
+size = Vector2(3660, 110)
 push_force = Vector2(145, 0)
 
-[node name="W_UpperStream" type="Area2D" parent="Hazards"]
-position = Vector2(1160, 560)
+[node name="W_MidRiver" type="Area2D" parent="Hazards"]
+position = Vector2(2320, 560)
 script = ExtResource("water")
-size = Vector2(760, 92)
-push_force = Vector2(130, 0)
+size = Vector2(1100, 96)
+push_force = Vector2(140, 0)
 
-[node name="M_Dashed1" type="AnimatableBody2D" parent="Blocks"]
-position = Vector2(720, 560)
-script = ExtResource("move")
-size = Vector2(160, 28)
-offset = Vector2(210, 0)
-speed = 110.0
+[node name="S_Water_A" type="Area2D" parent="Hazards"]
+position = Vector2(130, 748)
+script = ExtResource("spike")
+count = 2
+direction = "up"
 
-[node name="M_GreenLift" type="AnimatableBody2D" parent="Blocks"]
-position = Vector2(1160, 500)
-script = ExtResource("move")
-size = Vector2(160, 28)
-offset = Vector2(0, -170)
-speed = 95.0
-color = Color(0.25, 0.9, 0.25)
-
-[node name="M_OrangeBridge" type="AnimatableBody2D" parent="Blocks"]
-position = Vector2(2040, 500)
-script = ExtResource("move")
-size = Vector2(180, 28)
-offset = Vector2(240, 0)
-speed = 115.0
-
-[node name="C_PinkEnd" type="StaticBody2D" parent="Blocks"]
-position = Vector2(2600, 430)
-script = ExtResource("collapse")
-size = Vector2(220, 28)
-
-[node name="B_WaterRecovery" type="Area2D" parent="Blocks"]
-position = Vector2(1540, 620)
-script = ExtResource("bounce")
-
-[node name="S_WaterTeeth" type="Area2D" parent="Hazards"]
-position = Vector2(650, 632)
+[node name="S_Water_B" type="Area2D" parent="Hazards"]
+position = Vector2(930, 748)
 script = ExtResource("spike")
 count = 3
 direction = "up"
 
-[node name="S_FinalWall" type="Area2D" parent="Hazards"]
-position = Vector2(2890, 305)
+[node name="S_Water_C" type="Area2D" parent="Hazards"]
+position = Vector2(2020, 748)
+script = ExtResource("spike")
+count = 3
+direction = "up"
+
+[node name="S_S2Water_A" type="Area2D" parent="Hazards"]
+position = Vector2(2475, 748)
+script = ExtResource("spike")
+count = 3
+direction = "up"
+
+[node name="S_S2Water_B" type="Area2D" parent="Hazards"]
+position = Vector2(3280, 748)
+script = ExtResource("spike")
+count = 2
+direction = "up"
+
+[node name="S_FinalWallTeeth" type="Area2D" parent="Hazards"]
+position = Vector2(3395, 520)
 script = ExtResource("spike")
 count = 3
 direction = "left"
 
+[node name="JumpPlanScene1" type="Label" parent="Labels"]
+position = Vector2(70, 160)
+text = "Scene1: start fall to low step; J1 to small float; DropMomentum to pink; J2 climb back; glide to green movers; NoJumpGlide into Scene2."
+
+[node name="JumpPlanScene2" type="Label" parent="Labels"]
+position = Vector2(2130, 160)
+text = "Scene2: J4/J5 wall steps, J7/J8 green movers, water/inertia fallback, J9_FinalClimb to exit."
+
+[node name="J9_FinalClimb" type="Label" parent="Labels"]
+position = Vector2(3360, 260)
+text = "J9_FinalClimb"
+
 [node name="PPTTag" type="Label" parent="Labels"]
-position = Vector2(90, 290)
-text = "PPT5-6: two lake pages merged; moving boards form stable main route"
+position = Vector2(80, 205)
+text = "Second level has 2 scenes. Some red path parts are falling or inertia, not mandatory jump presses."
