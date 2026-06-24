@@ -14,6 +14,10 @@ class_name JumpArcGuide
 	set(value):
 		gravity = value
 		queue_redraw()
+@export var player_size := Vector2(48, 64):
+	set(value):
+		player_size = value
+		queue_redraw()
 @export var direction := 1:
 	set(value):
 		direction = 1 if value >= 0 else -1
@@ -25,6 +29,10 @@ class_name JumpArcGuide
 @export var fall_time := 0.85:
 	set(value):
 		fall_time = maxf(0.1, value)
+		queue_redraw()
+@export var double_jump_trigger_time := 0.38:
+	set(value):
+		double_jump_trigger_time = clampf(value, 0.08, simulation_time)
 		queue_redraw()
 @export var sample_step := 0.05:
 	set(value):
@@ -60,8 +68,9 @@ func _draw() -> void:
 	if not Engine.is_editor_hint():
 		return
 	var horizontal_speed := player_speed * horizontal_speed_scale * float(direction)
+	_draw_player_box()
 	_draw_arc(_make_jump_points(horizontal_speed, jump_velocity, simulation_time), normal_jump_color, "normal jump")
-	_draw_arc(_make_jump_points(horizontal_speed, jump_velocity * 0.92, simulation_time * 1.18), double_jump_color, "double jump")
+	_draw_arc(_make_double_jump_points(horizontal_speed), double_jump_color, "double jump")
 	_draw_arc(_make_jump_points(horizontal_speed, 0.0, fall_time), fall_inertia_color, "fall / inertia")
 	_draw_landing_band(horizontal_speed)
 
@@ -72,6 +81,27 @@ func _make_jump_points(horizontal_speed: float, start_velocity_y: float, duratio
 	while t <= duration:
 		var x := horizontal_speed * t
 		var y := start_velocity_y * t + 0.5 * gravity * t * t
+		points.append(Vector2(x, y))
+		t += sample_step
+	return points
+
+
+func _make_double_jump_points(horizontal_speed: float) -> PackedVector2Array:
+	var points := PackedVector2Array()
+	var t := 0.0
+	var trigger := minf(double_jump_trigger_time, simulation_time)
+	var trigger_x := horizontal_speed * trigger
+	var trigger_y := jump_velocity * trigger + 0.5 * gravity * trigger * trigger
+	while t <= simulation_time:
+		var x := 0.0
+		var y := 0.0
+		if t <= trigger:
+			x = horizontal_speed * t
+			y = jump_velocity * t + 0.5 * gravity * t * t
+		else:
+			var dt := t - trigger
+			x = trigger_x + horizontal_speed * dt
+			y = trigger_y + jump_velocity * dt + 0.5 * gravity * dt * dt
 		points.append(Vector2(x, y))
 		t += sample_step
 	return points
@@ -95,3 +125,12 @@ func _draw_landing_band(horizontal_speed: float) -> void:
 	draw_line(Vector2(min_x * sign, y), Vector2(max_x * sign, y), Color(1.0, 0.85, 0.15, 0.9), 5.0)
 	if show_labels:
 		draw_string(ThemeDB.fallback_font, Vector2(max_x * sign + 10.0 * sign, y + 18.0), "comfort landing", HORIZONTAL_ALIGNMENT_LEFT, -1.0, 14, Color(1.0, 0.85, 0.15, 0.9))
+
+
+func _draw_player_box() -> void:
+	var rect := Rect2(-player_size * 0.5, player_size)
+	draw_rect(rect, Color(1.0, 1.0, 1.0, 0.12), true)
+	draw_rect(rect, Color(1.0, 1.0, 1.0, 0.8), false, 2.0)
+	draw_circle(Vector2.ZERO, 4.0, Color(1.0, 0.25, 0.2, 0.95))
+	if show_labels:
+		draw_string(ThemeDB.fallback_font, Vector2(8, -8), "player center", HORIZONTAL_ALIGNMENT_LEFT, -1.0, 13, Color(1.0, 1.0, 1.0, 0.85))
