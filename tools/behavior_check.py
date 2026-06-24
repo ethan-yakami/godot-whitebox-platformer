@@ -98,7 +98,7 @@ def main() -> int:
         "@tool",
         "class_name JumpArcGuide",
         "player_speed := 256.0",
-        "jump_velocity := -560.0",
+        "jump_velocity := -640.0",
         "gravity := 1600.0",
         "normal_jump_color",
         "double_jump_color",

@@ -6,7 +6,7 @@ class_name JumpArcGuide
 	set(value):
 		player_speed = value
 		queue_redraw()
-@export var jump_velocity := -560.0:
+@export var jump_velocity := -640.0:
 	set(value):
 		jump_velocity = value
 		queue_redraw()
