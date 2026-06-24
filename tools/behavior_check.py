@@ -116,16 +116,19 @@ def main() -> int:
         "jump_velocity := -640.0",
         "gravity := 1600.0",
         "player_size := Vector2(48, 64)",
-        "double_jump_trigger_time",
-        "_make_double_jump_points",
         "_draw_player_box",
         "normal_jump_color",
-        "double_jump_color",
         "fall_inertia_color",
+        "player_box_fill_color",
+        "player_box_outline_color",
         "Engine.is_editor_hint()",
         "draw_polyline",
         "draw_string",
     ])
+    jump_arc_text = (ROOT / "scripts/components/jump_arc_guide.gd").read_text(encoding="utf-8")
+    for forbidden in ["double_jump_color", "_make_double_jump_points", "double jump"]:
+        if forbidden in jump_arc_text:
+            failures.append(f"scripts/components/jump_arc_guide.gd: forbidden {forbidden!r}")
     failures += require("scripts/moving_platform.gd", [
         "_draw",
         "draw_line",
