@@ -27,6 +27,7 @@ REQUIRED_FILES = [
     "scripts/components/stone.gd",
     "scripts/components/altar.gd",
     "scripts/components/start_view_box.gd",
+    "scripts/components/jump_arc_guide.gd",
     "levels/level_1.tscn",
     "levels/level_2.tscn",
     "levels/level_3.tscn",

@@ -94,6 +94,35 @@ def main() -> int:
             "@export",
             "_rebuild",
         ])
+    failures += require("scripts/components/jump_arc_guide.gd", [
+        "@tool",
+        "class_name JumpArcGuide",
+        "player_speed := 256.0",
+        "jump_velocity := -560.0",
+        "gravity := 1600.0",
+        "normal_jump_color",
+        "double_jump_color",
+        "fall_inertia_color",
+        "Engine.is_editor_hint()",
+        "draw_polyline",
+        "draw_string",
+    ])
+    failures += require("scripts/moving_platform.gd", [
+        "_draw",
+        "draw_line",
+        "draw_circle",
+        "queue_redraw",
+    ])
+    failures += require("levels/level_1.tscn", [
+        "JumpArcGuide",
+        "Arc_J1",
+        "Arc_J4_AirJump",
+    ])
+    failures += require("levels/level_2.tscn", [
+        "JumpArcGuide",
+        "Arc_Scene1",
+        "Arc_Scene2",
+    ])
     failures += require("scripts/hud.gd", [
         "rules_panel",
         "Resume",

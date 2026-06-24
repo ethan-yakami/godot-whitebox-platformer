@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://scripts/components/whitebox_platform.gd" id="plat"]
 [ext_resource type="Script" path="res://scripts/components/spike_strip.gd" id="spike"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://scripts/components/altar.gd" id="altar"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="enemy"]
 [ext_resource type="Script" path="res://scripts/components/start_view_box.gd" id="viewbox"]
+[ext_resource type="Script" path="res://scripts/components/jump_arc_guide.gd" id="jump_arc"]
 
 [node name="Level2" type="Node2D"]
 
@@ -33,6 +34,20 @@
 position = Vector2(0, 20)
 script = ExtResource("viewbox")
 size = Vector2(1250, 380)
+
+[node name="JumpArcGuide_Arc_Scene1" type="Node2D" parent="Guides"]
+position = Vector2(110, 445)
+script = ExtResource("jump_arc")
+direction = 1
+simulation_time = 0.9
+horizontal_speed_scale = 1.0
+
+[node name="JumpArcGuide_Arc_Scene2" type="Node2D" parent="Guides"]
+position = Vector2(2210, 555)
+script = ExtResource("jump_arc")
+direction = 1
+simulation_time = 0.95
+horizontal_speed_scale = 1.0
 
 [node name="SpawnPoint" type="Marker2D" parent="Markers"]
 position = Vector2(120, 430)

@@ -10,7 +10,10 @@ class_name MovingPlatform
 	set(value):
 		color = value
 		_rebuild()
-@export var offset := Vector2(128, 0)
+@export var offset := Vector2(128, 0):
+	set(value):
+		offset = value
+		queue_redraw()
 @export var speed := 128.0
 
 var _origin := Vector2.ZERO
@@ -20,6 +23,7 @@ var _t := 0.0
 func _ready() -> void:
 	_rebuild()
 	_origin = global_position
+	queue_redraw()
 
 
 func _physics_process(delta: float) -> void:
@@ -32,9 +36,18 @@ func _physics_process(delta: float) -> void:
 	global_position = _origin.lerp(_origin + offset, alpha)
 
 
+func _draw() -> void:
+	if not Engine.is_editor_hint():
+		return
+	draw_line(Vector2.ZERO, offset, Color(0.95, 0.55, 0.18, 0.75), 3.0)
+	draw_circle(Vector2.ZERO, 6.0, Color(0.2, 0.55, 1.0, 0.85))
+	draw_circle(offset, 6.0, Color(1.0, 0.25, 0.2, 0.85))
+
+
 func _rebuild() -> void:
 	if not is_inside_tree():
 		return
+	queue_redraw()
 	var body := get_node_or_null("Visual") as ColorRect
 	if body == null:
 		body = ColorRect.new()
