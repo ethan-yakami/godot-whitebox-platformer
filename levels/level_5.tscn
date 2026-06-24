@@ -1,17 +1,32 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=17 format=3]
 
 [ext_resource type="Script" path="res://scripts/components/whitebox_platform.gd" id="plat"]
 [ext_resource type="Script" path="res://scripts/components/spike_strip.gd" id="spike"]
-[ext_resource type="Script" path="res://scripts/components/water_zone.gd" id="water"]
 [ext_resource type="Script" path="res://scripts/moving_platform.gd" id="move"]
 [ext_resource type="Script" path="res://scripts/collapse_platform.gd" id="collapse"]
 [ext_resource type="Script" path="res://scripts/components/bounce_pad.gd" id="bounce"]
 [ext_resource type="Script" path="res://scripts/components/checkpoint.gd" id="checkpoint"]
 [ext_resource type="Script" path="res://scripts/components/exit_gate.gd" id="exit"]
-[ext_resource type="Script" path="res://scripts/components/stone.gd" id="stone"]
 [ext_resource type="Script" path="res://scripts/components/altar.gd" id="altar"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="enemy"]
 [ext_resource type="Script" path="res://scripts/components/start_view_box.gd" id="viewbox"]
+[ext_resource type="Script" path="res://scripts/components/jump_arc_guide.gd" id="jump_arc"]
+[ext_resource type="Script" path="res://scripts/components/player_size_guide.gd" id="player_size"]
+[ext_resource type="Script" path="res://scripts/interactable.gd" id="interactable"]
+[ext_resource type="Script" path="res://scripts/components/moving_spike.gd" id="moving_spike"]
+[ext_resource type="Script" path="res://scripts/hazard.gd" id="hazard"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_berry"]
+size = Vector2(52, 52)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_red_190"]
+size = Vector2(190, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_red_172"]
+size = Vector2(172, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_red_174"]
+size = Vector2(174, 30)
 
 [node name="Level5" type="Node2D"]
 
@@ -29,121 +44,306 @@
 
 [node name="Actors" type="Node2D" parent="."]
 
-[node name="StartViewBox" type="Node2D" parent="Guides"]
-position = Vector2(0, 210)
-script = ExtResource("viewbox")
-size = Vector2(1120, 500)
-
-[node name="SpawnPoint" type="Marker2D" parent="Markers"]
-position = Vector2(120, 650)
-
-[node name="ReturnSpawnPoint" type="Marker2D" parent="Markers"]
-position = Vector2(3560, 190)
-
-[node name="Checkpoint" type="Area2D" parent="Markers"]
-position = Vector2(120, 650)
-script = ExtResource("checkpoint")
-
-[node name="ExitGate" type="Area2D" parent="Markers"]
-position = Vector2(3720, 170)
-script = ExtResource("exit")
-
-[node name="Route" type="Label" parent="Labels"]
-position = Vector2(60, 120)
-text = "Route: PPT10 古塔；进入Boss平台解除一周目限制，击败后在献祭石拿传承与冲刺。"
-
-[node name="P_Start" type="StaticBody2D" parent="Blocks"]
-position = Vector2(0, 730)
+[node name="P5_Ref_LeftTopBrokenFloor" type="StaticBody2D" parent="Blocks"]
+position = Vector2(0, 232)
 script = ExtResource("plat")
-size = Vector2(320, 36)
+size = Vector2(135, 30)
 
-[node name="P_LowCeiling_A" type="StaticBody2D" parent="Blocks"]
-position = Vector2(360, 620)
-script = ExtResource("plat")
-size = Vector2(240, 30)
-
-[node name="P_LowPath" type="StaticBody2D" parent="Blocks"]
-position = Vector2(520, 710)
-script = ExtResource("plat")
-size = Vector2(320, 34)
-
-[node name="P_MoveWait" type="StaticBody2D" parent="Blocks"]
-position = Vector2(930, 650)
-script = ExtResource("plat")
-size = Vector2(250, 34)
-
-[node name="P_BossArena" type="StaticBody2D" parent="Blocks"]
-position = Vector2(1360, 500)
-script = ExtResource("plat")
-size = Vector2(760, 40)
-
-[node name="P_AfterBossStep1" type="StaticBody2D" parent="Blocks"]
-position = Vector2(2240, 560)
-script = ExtResource("plat")
-size = Vector2(220, 34)
-
-[node name="P_AfterBossStep2" type="StaticBody2D" parent="Blocks"]
-position = Vector2(2500, 470)
-script = ExtResource("plat")
-size = Vector2(220, 34)
-
-[node name="P_AltarSteps" type="StaticBody2D" parent="Blocks"]
-position = Vector2(2800, 390)
-script = ExtResource("plat")
-size = Vector2(220, 34)
-
-[node name="P_Altar" type="StaticBody2D" parent="Blocks"]
-position = Vector2(3300, 300)
-script = ExtResource("plat")
-size = Vector2(420, 36)
-
-[node name="W_BottomRedSlot" type="Area2D" parent="Hazards"]
-position = Vector2(360, 745)
-script = ExtResource("water")
-size = Vector2(900, 70)
-push_force = Vector2(0, 0)
-
-[node name="M_TowerBoard" type="AnimatableBody2D" parent="Blocks"]
-position = Vector2(760, 660)
+[node name="M5_LeftGreenMover" type="AnimatableBody2D" parent="Blocks"]
+position = Vector2(218, 160)
 script = ExtResource("move")
-size = Vector2(170, 28)
-offset = Vector2(210, 0)
-speed = 105.0
+size = Vector2(60, 30)
+color = Color(0.55, 0.85, 0.42, 1)
+offset = Vector2(108, 0)
+speed = 96.0
 
-[node name="C_TowerPink" type="StaticBody2D" parent="Blocks"]
-position = Vector2(1120, 600)
+[node name="P5_LongBossWalk" type="StaticBody2D" parent="Blocks"]
+position = Vector2(470, 116)
+script = ExtResource("plat")
+size = Vector2(218, 30)
+
+[node name="P5_TopWalk_A" type="StaticBody2D" parent="Blocks"]
+position = Vector2(470, 232)
+script = ExtResource("plat")
+size = Vector2(300, 30)
+
+[node name="P5_TopWalk_B" type="StaticBody2D" parent="Blocks"]
+position = Vector2(770, 232)
+script = ExtResource("plat")
+size = Vector2(300, 30)
+
+[node name="P5_TopWalk_C" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1070, 232)
+script = ExtResource("plat")
+size = Vector2(210, 30)
+
+[node name="P5_StartFloor" type="StaticBody2D" parent="Blocks"]
+position = Vector2(0, 680)
+script = ExtResource("plat")
+size = Vector2(205, 30)
+
+[node name="P5_StartFloor_B" type="StaticBody2D" parent="Blocks"]
+position = Vector2(375, 680)
+script = ExtResource("plat")
+size = Vector2(205, 30)
+
+[node name="P5_Ref_LowerRoom_Ceiling_A" type="StaticBody2D" parent="Blocks"]
+position = Vector2(0, 402)
+script = ExtResource("plat")
+size = Vector2(300, 30)
+
+[node name="P5_Ref_LowerRoom_Ceiling_B" type="StaticBody2D" parent="Blocks"]
+position = Vector2(300, 402)
+script = ExtResource("plat")
+size = Vector2(280, 30)
+
+[node name="B5_LowerOrangePad" type="Area2D" parent="Blocks"]
+position = Vector2(246, 568)
+script = ExtResource("bounce")
+size = Vector2(88, 30)
+bounce_force = 760.0
+
+[node name="C5_LowerPink" type="StaticBody2D" parent="Blocks"]
+position = Vector2(550, 568)
 script = ExtResource("collapse")
-size = Vector2(210, 28)
+size = Vector2(56, 30)
+collapse_delay = 0.55
+
+[node name="P5_AltarFloor" type="StaticBody2D" parent="Blocks"]
+position = Vector2(702, 568)
+script = ExtResource("plat")
+size = Vector2(300, 30)
+
+[node name="P5_AltarFloor_B" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1002, 568)
+script = ExtResource("plat")
+size = Vector2(278, 30)
+
+[node name="P5_AltarPillarA" type="StaticBody2D" parent="Blocks"]
+position = Vector2(983, 447)
+script = ExtResource("plat")
+size = Vector2(34, 151)
+
+[node name="P5_AltarPillarB" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1136, 333)
+script = ExtResource("plat")
+size = Vector2(35, 265)
+
+[node name="P5_AltarStep" type="StaticBody2D" parent="Blocks"]
+position = Vector2(1170, 466)
+script = ExtResource("plat")
+size = Vector2(54, 30)
+
+[node name="P5_Ref_LowerRoom_BackWall" type="Line2D" parent="Guides"]
+position = Vector2(0, 326)
+points = PackedVector2Array(0, 0, 612, 0, 612, 392, 0, 392, 0, 0)
+width = 2.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="P5_Ref_RightTower_Wall" type="Line2D" parent="Guides"]
+position = Vector2(1136, 333)
+points = PackedVector2Array(0, 0, 35, 0, 35, 265, 0, 265, 0, 0)
+width = 2.0
+default_color = Color(0.55, 0.55, 0.55, 1)
+
+[node name="P5_Ref_BossArrow" type="Polygon2D" parent="Guides"]
+position = Vector2(647, 96)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-12, -34, 12, -34, 12, -10, 32, -10, 0, 25, -32, -10, -12, -10)
+
+[node name="P5_Ref_MoverDash_L" type="Line2D" parent="Guides"]
+position = Vector2(169, 146)
+points = PackedVector2Array(0, 0, 0, 72)
+width = 2.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="P5_Ref_MoverDash_R" type="Line2D" parent="Guides"]
+position = Vector2(326, 146)
+points = PackedVector2Array(0, 0, 0, 72)
+width = 2.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="HZ5_RedWalk_A" type="Area2D" parent="Hazards"]
+position = Vector2(279, 234)
+script = ExtResource("hazard")
+damage = 1
+
+[node name="Visual" type="Polygon2D" parent="Hazards/HZ5_RedWalk_A"]
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 190, 0, 190, 30, 0, 30)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hazards/HZ5_RedWalk_A"]
+position = Vector2(95, 15)
+shape = SubResource("RectangleShape2D_red_190")
+
+[node name="HZ5_RedWalk_B" type="Area2D" parent="Hazards"]
+position = Vector2(803, 234)
+script = ExtResource("hazard")
+damage = 1
+
+[node name="Visual" type="Polygon2D" parent="Hazards/HZ5_RedWalk_B"]
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 174, 0, 174, 30, 0, 30)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hazards/HZ5_RedWalk_B"]
+position = Vector2(87, 15)
+shape = SubResource("RectangleShape2D_red_174")
+
+[node name="HZ5_RedSlot_A" type="Area2D" parent="Hazards"]
+position = Vector2(203, 680)
+script = ExtResource("hazard")
+damage = 1
+
+[node name="Visual" type="Polygon2D" parent="Hazards/HZ5_RedSlot_A"]
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 172, 0, 172, 30, 0, 30)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hazards/HZ5_RedSlot_A"]
+position = Vector2(86, 15)
+shape = SubResource("RectangleShape2D_red_172")
+
+[node name="HZ5_RedSlot_B" type="Area2D" parent="Hazards"]
+position = Vector2(492, 680)
+script = ExtResource("hazard")
+damage = 1
+
+[node name="Visual" type="Polygon2D" parent="Hazards/HZ5_RedSlot_B"]
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 172, 0, 172, 30, 0, 30)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hazards/HZ5_RedSlot_B"]
+position = Vector2(86, 15)
+shape = SubResource("RectangleShape2D_red_172")
+
+[node name="HZ5_CeilingMover" type="Area2D" parent="Hazards"]
+position = Vector2(393, 432)
+script = ExtResource("moving_spike")
+count = 3
+direction = "down"
+offset = Vector2(0, 90)
+speed = 122.0
+
+[node name="S5_AltarTeeth_A" type="Area2D" parent="Hazards"]
+position = Vector2(866, 524)
+script = ExtResource("spike")
+count = 3
+direction = "up"
+
+[node name="S5_AltarTeeth_B" type="Area2D" parent="Hazards"]
+position = Vector2(1044, 524)
+script = ExtResource("spike")
+count = 3
+direction = "up"
+
+[node name="P5_Ref_RewardCrossTop" type="Polygon2D" parent="Hazards"]
+position = Vector2(1148, 217)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(-18, -7, -7, -7, -7, -18, 7, -18, 7, -7, 18, -7, 18, 7, 7, 7, 7, 18, -7, 18, -7, 7, -18, 7)
+
+[node name="P5_Ref_RewardCrossAltar" type="Polygon2D" parent="Hazards"]
+position = Vector2(1200, 548)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(-18, -7, -7, -7, -7, -18, 7, -18, 7, -7, 18, -7, 18, 7, 7, 7, 7, 18, -7, 18, -7, 7, -18, 7)
+
+[node name="P5_Ref_AltarStar" type="Polygon2D" parent="Hazards"]
+position = Vector2(1242, 650)
+color = Color(0.25, 0.45, 0.85, 1)
+polygon = PackedVector2Array(0, -34, 10, -10, 34, -10, 16, 4, 22, 30, 0, 15, -22, 30, -16, 4, -34, -10, -10, -10)
 
 [node name="legacy_boss" type="CharacterBody2D" parent="Actors"]
-position = Vector2(1700, 460)
+position = Vector2(577, 88)
 script = ExtResource("enemy")
 health = 10
 speed = 58.0
-patrol_distance = 260.0
+patrol_distance = 120.0
 scale = Vector2(1.55, 1.55)
 
-[node name="S_BossPit" type="Area2D" parent="Hazards"]
-position = Vector2(1320, 442)
-script = ExtResource("spike")
-count = 3
-direction = "up"
+[node name="SpawnPoint" type="Marker2D" parent="Markers"]
+position = Vector2(36, 680)
 
-[node name="S_AltarTeeth" type="Area2D" parent="Hazards"]
-position = Vector2(3060, 332)
-script = ExtResource("spike")
-count = 3
-direction = "up"
+[node name="ReturnSpawnPoint" type="Marker2D" parent="Markers"]
+position = Vector2(1242, 650)
 
-[node name="B_RecoveryPad" type="Area2D" parent="Blocks"]
-position = Vector2(2600, 450)
-script = ExtResource("bounce")
+[node name="Checkpoint" type="Area2D" parent="Markers"]
+position = Vector2(36, 680)
+script = ExtResource("checkpoint")
+
+[node name="ExitGate" type="Area2D" parent="Markers"]
+position = Vector2(1242, 610)
+script = ExtResource("exit")
+size = Vector2(50, 90)
+
+[node name="Berry_Tower" type="Area2D" parent="Markers"]
+position = Vector2(1148, 217)
+script = ExtResource("interactable")
+kind = "berry"
+
+[node name="BerryVisual" type="Polygon2D" parent="Markers/Berry_Tower"]
+polygon = PackedVector2Array(-26, 0, -10, 0, -10, -16, 10, -16, 10, 0, 26, 0, 26, 20, 10, 20, 10, 36, -10, 36, -10, 20, -26, 20)
+color = Color(1, 0.05, 0.05, 1)
+
+[node name="BerryStem" type="Polygon2D" parent="Markers/Berry_Tower"]
+polygon = PackedVector2Array(-4, -18, 0, -30, 4, -18)
+color = Color(0.1, 0.65, 0.16, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Markers/Berry_Tower"]
+shape = SubResource("RectangleShape2D_berry")
 
 [node name="Altar_Legacy" type="Area2D" parent="Markers"]
-position = Vector2(3470, 235)
+position = Vector2(1242, 650)
 script = ExtResource("altar")
 altar_note = "Legacy"
 
+[node name="StartViewBox" type="Node2D" parent="Guides"]
+position = Vector2(0, 326)
+script = ExtResource("viewbox")
+size = Vector2(612, 392)
+
+[node name="PlayerSizeGuide_Reference" type="Node2D" parent="Guides"]
+position = Vector2(36, 680)
+script = ExtResource("player_size")
+
+[node name="JumpArcGuide_Reference" type="Node2D" parent="Guides"]
+position = Vector2(36, 680)
+script = ExtResource("jump_arc")
+simulation_time = 0.95
+horizontal_speed_scale = 0.9
+
+[node name="JumpArcGuide_Boss" type="Node2D" parent="Guides"]
+position = Vector2(218, 160)
+script = ExtResource("jump_arc")
+simulation_time = 0.88
+horizontal_speed_scale = 0.9
+
+[node name="JumpArcGuide_Altar" type="Node2D" parent="Guides"]
+position = Vector2(702, 568)
+script = ExtResource("jump_arc")
+simulation_time = 0.86
+horizontal_speed_scale = 0.92
+
+[node name="GreenStartOutbound" type="Node2D" parent="Guides"]
+position = Vector2(36, 650)
+
+[node name="Arrow" type="Polygon2D" parent="Guides/GreenStartOutbound"]
+polygon = PackedVector2Array(-30, -30, 0, -30, 0, -58, 30, -58, 30, -30, 60, -30, 0, 30, -60, -30)
+color = Color(0, 0.72, 0.22, 0.95)
+
+[node name="BlackBossDrop" type="Node2D" parent="Guides"]
+position = Vector2(647, 96)
+
+[node name="Arrow" type="Polygon2D" parent="Guides/BlackBossDrop"]
+polygon = PackedVector2Array(-12, -34, 12, -34, 12, -10, 32, -10, 0, 25, -32, -10, -12, -10)
+color = Color(0.05, 0.05, 0.05, 0.95)
+
+[node name="Route" type="Label" parent="Labels"]
+position = Vector2(900, 30)
+text = "Fifth level: PPT10 image one-to-one rebuild. Ancient tower style, one lap to the end, second lap back to start."
+
+[node name="JumpPlan" type="Label" parent="Labels"]
+position = Vector2(900, 92)
+text = "Left x4 before Boss, then right x2. Boss clear removes limit; reward adds spikes immunity and HP to 5."
+
 [node name="PPTTag" type="Label" parent="Labels"]
-position = Vector2(80, 300)
-text = "PPT10: low ceiling/danger slot -> boss arena -> stepped altar area"
+position = Vector2(900, 154)
+text = "PPT10 exact-legend rebuild / PPT10 image one-to-one rebuild. Standard platform thickness is 30."
+

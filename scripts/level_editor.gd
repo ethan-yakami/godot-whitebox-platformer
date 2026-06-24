@@ -35,6 +35,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.ctrl_pressed and event.keycode == KEY_S:
 			_save_layout()
 			get_viewport().set_input_as_handled()
+		elif event.ctrl_pressed and event.keycode == KEY_D:
+			_duplicate_selected()
+			get_viewport().set_input_as_handled()
 		elif event.keycode >= KEY_1 and event.keycode <= KEY_5:
 			level_number = event.keycode - KEY_0
 			_load_level()
@@ -52,8 +55,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.pressed:
 			_pick_node(world_pos)
 		else:
-			_dragging = false
-			_resize_mode = false
+			_finish_edit()
 			_save_layout()
 
 	if event is InputEventMouseMotion and _selected != null and _dragging:
@@ -64,6 +66,43 @@ func _unhandled_input(event: InputEvent) -> void:
 			_selected.global_position = _snap(world_pos + _drag_offset)
 		queue_redraw()
 		_update_hud()
+
+
+func _finish_edit() -> void:
+	_selected = null
+	_dragging = false
+	_resize_mode = false
+	queue_redraw()
+	_update_hud()
+
+
+func _duplicate_selected() -> void:
+	if _selected == null or _selected.get_parent() == null:
+		_update_hud("Select a block first, then Ctrl+D duplicate")
+		return
+	var copy := _selected.duplicate()
+	copy.name = _unique_copy_name(_selected.name)
+	copy.global_position = _snap(_selected.global_position + Vector2(grid_size * 2.0, grid_size * 2.0))
+	_selected.get_parent().add_child(copy)
+	copy.owner = _level_root
+	_selected = copy
+	_dragging = false
+	_resize_mode = false
+	queue_redraw()
+	_save_layout()
+	_update_hud("Duplicated: %s" % copy.name)
+
+
+func _unique_copy_name(base_name: String) -> String:
+	var clean_base := base_name
+	if clean_base.contains("@"):
+		clean_base = clean_base.get_slice("@", 0)
+	var index := 1
+	var candidate := "%s_Copy%d" % [clean_base, index]
+	while _level_root.find_child(candidate, true, false) != null:
+		index += 1
+		candidate = "%s_Copy%d" % [clean_base, index]
+	return candidate
 
 
 func _draw() -> void:
@@ -116,7 +155,7 @@ func _pick_node(world_pos: Vector2) -> void:
 			_drag_offset = node.global_position - world_pos
 			queue_redraw()
 			return
-	queue_redraw()
+	_finish_edit()
 
 
 func _editable_nodes() -> Array[Node2D]:

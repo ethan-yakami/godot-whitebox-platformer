@@ -15,6 +15,7 @@ class_name MovingPlatform
 		offset = value
 		queue_redraw()
 @export var speed := 128.0
+@export var bounce_height := 0.0
 
 var _origin := Vector2.ZERO
 var _t := 0.0
@@ -67,3 +68,30 @@ func _rebuild() -> void:
 		shape = RectangleShape2D.new()
 		collision.shape = shape
 	shape.size = size
+
+	var trigger := get_node_or_null("BounceTrigger") as Area2D
+	if trigger == null:
+		trigger = Area2D.new()
+		trigger.name = "BounceTrigger"
+		add_child(trigger)
+	if not trigger.body_entered.is_connected(_on_body_entered):
+		trigger.body_entered.connect(_on_body_entered)
+	var trigger_collision := trigger.get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if trigger_collision == null:
+		trigger_collision = CollisionShape2D.new()
+		trigger_collision.name = "CollisionShape2D"
+		trigger.add_child(trigger_collision)
+	var trigger_shape := trigger_collision.shape as RectangleShape2D
+	if trigger_shape == null:
+		trigger_shape = RectangleShape2D.new()
+		trigger_collision.shape = trigger_shape
+	trigger_shape.size = Vector2(size.x, maxf(12.0, size.y + 10.0))
+	trigger_collision.position = Vector2(0.0, -maxf(6.0, size.y * 0.2))
+
+
+func _on_body_entered(body: Node) -> void:
+	if bounce_height <= 0.0:
+		return
+	if body is Player and body.velocity.y >= 0.0:
+		var bounce_force := sqrt(2.0 * body.gravity * bounce_height)
+		body.bounce(bounce_force)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=16 format=3]
 
 [ext_resource type="Script" path="res://scripts/components/whitebox_platform.gd" id="plat"]
 [ext_resource type="Script" path="res://scripts/components/spike_strip.gd" id="spike"]
@@ -12,6 +12,13 @@
 [ext_resource type="Script" path="res://scripts/components/altar.gd" id="altar"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="enemy"]
 [ext_resource type="Script" path="res://scripts/components/start_view_box.gd" id="viewbox"]
+[ext_resource type="Script" path="res://scripts/components/jump_arc_guide.gd" id="jump_arc"]
+[ext_resource type="Script" path="res://scripts/components/player_size_guide.gd" id="player_size"]
+[ext_resource type="Script" path="res://scripts/components/moving_spike.gd" id="moving_spike"]
+[ext_resource type="Script" path="res://scripts/interactable.gd" id="interactable"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_berry"]
+size = Vector2(52, 52)
 
 [node name="Level3" type="Node2D"]
 
@@ -32,126 +39,260 @@
 [node name="StartViewBox" type="Node2D" parent="Guides"]
 position = Vector2(0, 210)
 script = ExtResource("viewbox")
-size = Vector2(1120, 500)
+size = Vector2(1180, 520)
+
+[node name="PlayerSizeGuide_Reference" type="Node2D" parent="Guides"]
+position = Vector2(120, 640)
+script = ExtResource("player_size")
+
+[node name="JumpArcGuide_Reference" type="Node2D" parent="Guides"]
+position = Vector2(120, 640)
+script = ExtResource("jump_arc")
+simulation_time = 0.95
+horizontal_speed_scale = 1.0
+
+[node name="JumpArcGuide_ClimbLeft" type="Node2D" parent="Guides"]
+position = Vector2(1020, 565)
+script = ExtResource("jump_arc")
+simulation_time = 0.88
+horizontal_speed_scale = 0.94
+
+[node name="JumpArcGuide_MidLane" type="Node2D" parent="Guides"]
+position = Vector2(2720, 560)
+script = ExtResource("jump_arc")
+simulation_time = 0.92
+horizontal_speed_scale = 1.0
 
 [node name="SpawnPoint" type="Marker2D" parent="Markers"]
 position = Vector2(120, 640)
 
 [node name="ReturnSpawnPoint" type="Marker2D" parent="Markers"]
-position = Vector2(2860, 210)
+position = Vector2(520, 612)
 
 [node name="Checkpoint" type="Area2D" parent="Markers"]
-position = Vector2(120, 640)
+position = Vector2(2040, 62)
 script = ExtResource("checkpoint")
+size = Vector2(60, 60)
 
 [node name="ExitGate" type="Area2D" parent="Markers"]
-position = Vector2(3000, 190)
+position = Vector2(12240, 520)
 script = ExtResource("exit")
+size = Vector2(56, 108)
+
+[node name="Stone_ForestLore" type="Area2D" parent="Markers"]
+position = Vector2(11820, 648)
+script = ExtResource("stone")
+kind = "stone"
+size = Vector2(70, 70)
+
+[node name="Berry_Forest" type="Area2D" parent="Markers"]
+position = Vector2(320, 646)
+script = ExtResource("interactable")
+kind = "berry"
+
+[node name="BerryVisual" type="Polygon2D" parent="Markers/Berry_Forest"]
+polygon = PackedVector2Array(-26, 0, -10, 0, -10, -16, 10, -16, 10, 0, 26, 0, 26, 20, 10, 20, 10, 36, -10, 36, -10, 20, -26, 20)
+color = Color(1, 0.05, 0.05, 1)
+
+[node name="BerryStem" type="Polygon2D" parent="Markers/Berry_Forest"]
+polygon = PackedVector2Array(-4, -18, 0, -30, 4, -18)
+color = Color(0.1, 0.65, 0.16, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Markers/Berry_Forest"]
+shape = SubResource("RectangleShape2D_berry")
+
+[node name="GreenStartOutbound" type="Node2D" parent="Guides"]
+position = Vector2(120, 640)
+
+[node name="Arrow" type="Polygon2D" parent="Guides/GreenStartOutbound"]
+polygon = PackedVector2Array(-38, -28, 0, -28, 0, -58, 40, -58, 40, -28, 78, -28, 20, 30, -38, -28)
+color = Color(0.0, 0.72, 0.22, 0.95)
+
+[node name="BlackStartReturn" type="Node2D" parent="Guides"]
+position = Vector2(5400, 62)
+
+[node name="Arrow" type="Polygon2D" parent="Guides/BlackStartReturn"]
+polygon = PackedVector2Array(-38, -28, 0, -28, 0, -58, 40, -58, 40, -28, 78, -28, 20, 30, -38, -28)
+color = Color(0.05, 0.05, 0.05, 0.95)
 
 [node name="Route" type="Label" parent="Labels"]
-position = Vector2(60, 120)
-text = "Route: PPT7 森林三层交错；一周目只给A左移3次，主路线主要向右推进。"
+position = Vector2(60, 118)
+text = "Route: PPT7 exact-legend rebuild. Yellow bands are moving-spike lanes, not terrain."
 
-[node name="P_Start" type="StaticBody2D" parent="Blocks"]
-position = Vector2(0, 720)
+[node name="JumpPlan" type="Label" parent="Labels"]
+position = Vector2(80, 166)
+text = "Legend match: fixed spikes, moving spikes, green movers, orange bounce, pink collapse, red obstacles, berry, stone."
+
+[node name="PPTTag" type="Label" parent="Labels"]
+position = Vector2(80, 208)
+text = "PPT7 exact-legend rebuild with all shown colors and symbols represented."
+
+[node name="P_BottomFloor" type="StaticBody2D" parent="Blocks"]
+position = Vector2(0, 1490)
 script = ExtResource("plat")
-size = Vector2(300, 36)
+size = Vector2(5075, 30)
 
-[node name="P_Lower1" type="StaticBody2D" parent="Blocks"]
-position = Vector2(430, 680)
+[node name="P_LeftLower" type="StaticBody2D" parent="Blocks"]
+position = Vector2(0, 1050)
 script = ExtResource("plat")
-size = Vector2(280, 34)
+size = Vector2(2390.32, 30)
 
-[node name="P_Lower2" type="StaticBody2D" parent="Blocks"]
-position = Vector2(840, 640)
+[node name="P_CollapseMid" type="StaticBody2D" parent="Blocks"]
+position = Vector2(3240, 1050)
+script = ExtResource("collapse")
+size = Vector2(696.77, 30)
+collapse_delay = 0.55
+
+[node name="P_RightLower" type="StaticBody2D" parent="Blocks"]
+position = Vector2(4680, 1050)
 script = ExtResource("plat")
-size = Vector2(260, 34)
+size = Vector2(1529.03, 30)
 
-[node name="P_MidBerry" type="StaticBody2D" parent="Blocks"]
-position = Vector2(1180, 540)
+[node name="P_RightGapLand" type="StaticBody2D" parent="Blocks"]
+position = Vector2(9560, 1050)
 script = ExtResource("plat")
-size = Vector2(260, 34)
+size = Vector2(846.77, 30)
 
-[node name="P_Mid2" type="StaticBody2D" parent="Blocks"]
-position = Vector2(1530, 500)
+[node name="P_LeftUpperL" type="StaticBody2D" parent="Blocks"]
+position = Vector2(0, 640)
 script = ExtResource("plat")
-size = Vector2(240, 34)
+size = Vector2(1884.38, 30)
 
-[node name="P_Mid3" type="StaticBody2D" parent="Blocks"]
-position = Vector2(1900, 450)
+[node name="P_LeftWall" type="StaticBody2D" parent="Blocks"]
+position = Vector2(3920, 370)
 script = ExtResource("plat")
-size = Vector2(240, 34)
+size = Vector2(210, 650)
 
-[node name="P_Upper1" type="StaticBody2D" parent="Blocks"]
-position = Vector2(2230, 330)
+[node name="P_MidUpper" type="StaticBody2D" parent="Blocks"]
+position = Vector2(5540, 640)
 script = ExtResource("plat")
-size = Vector2(260, 34)
+size = Vector2(2864.52, 30)
 
-[node name="P_Goal" type="StaticBody2D" parent="Blocks"]
-position = Vector2(2920, 270)
+[node name="P_TopCheckpoint" type="StaticBody2D" parent="Blocks"]
+position = Vector2(6260, 80)
 script = ExtResource("plat")
-size = Vector2(240, 34)
+size = Vector2(1127.42, 30)
 
-[node name="P_Stone" type="StaticBody2D" parent="Blocks"]
-position = Vector2(2460, 520)
+[node name="P_TopTiny" type="StaticBody2D" parent="Blocks"]
+position = Vector2(5060, 210)
 script = ExtResource("plat")
-size = Vector2(220, 34)
+size = Vector2(385.71, 30)
 
-[node name="W_LowerCurrent" type="Area2D" parent="Hazards"]
-position = Vector2(300, 735)
+[node name="P_FinalRight" type="StaticBody2D" parent="Blocks"]
+position = Vector2(11540, 1030)
+script = ExtResource("plat")
+size = Vector2(532.26, 30)
+
+[node name="HZ_RedObstacleLeft" type="Area2D" parent="Hazards"]
+position = Vector2(0, 592)
 script = ExtResource("water")
-size = Vector2(1200, 96)
-push_force = Vector2(120, 0)
+size = Vector2(4020, 122)
+push_force = Vector2(0, 0)
 
-[node name="W_VerticalRisk" type="Area2D" parent="Hazards"]
-position = Vector2(2320, 360)
-script = ExtResource("water")
-size = Vector2(110, 300)
-push_force = Vector2(0, -100)
+[node name="HZ_RedObstacleLeftTri" type="Area2D" parent="Hazards"]
+position = Vector2(4080, 594)
+script = ExtResource("moving_spike")
+count = 3
+direction = "right"
+offset = Vector2(0, 0)
+speed = 1.0
 
-[node name="S_Lower" type="Area2D" parent="Hazards"]
-position = Vector2(720, 622)
+[node name="HZ_MovingSpikeLane_Top" type="Area2D" parent="Hazards"]
+position = Vector2(7420, 0)
+script = ExtResource("moving_spike")
+count = 3
+direction = "down"
+offset = Vector2(0, 1780)
+speed = 145.0
+
+[node name="HZ_MovingSpikeLane_Mid" type="Area2D" parent="Hazards"]
+position = Vector2(3180, 594)
+script = ExtResource("moving_spike")
+count = 3
+direction = "right"
+offset = Vector2(7060, 0)
+speed = 130.0
+
+[node name="HZ_MovingSpikeLane_Bottom" type="Area2D" parent="Hazards"]
+position = Vector2(12060, 1180)
+script = ExtResource("moving_spike")
+count = 3
+direction = "left"
+offset = Vector2(-520, 0)
+speed = 118.0
+
+[node name="S_FixedBottom_A" type="Area2D" parent="Hazards"]
+position = Vector2(3720, 1384)
 script = ExtResource("spike")
 count = 3
 direction = "up"
 
-[node name="S_Mid" type="Area2D" parent="Hazards"]
-position = Vector2(1600, 442)
+[node name="S_FixedBottom_B" type="Area2D" parent="Hazards"]
+position = Vector2(8440, 1384)
 script = ExtResource("spike")
-count = 2
+count = 3
 direction = "up"
 
-[node name="S_Vertical" type="Area2D" parent="Hazards"]
-position = Vector2(2440, 370)
+[node name="S_FixedLowerLeft" type="Area2D" parent="Hazards"]
+position = Vector2(1780, 954)
 script = ExtResource("spike")
-count = 4
-direction = "left"
+count = 3
+direction = "up"
 
-[node name="M_ForestLift" type="AnimatableBody2D" parent="Blocks"]
-position = Vector2(1040, 610)
+[node name="S_FixedLowerRight" type="Area2D" parent="Hazards"]
+position = Vector2(10580, 818)
+script = ExtResource("spike")
+count = 3
+direction = "down"
+
+[node name="M_LowGreenPlatform" type="AnimatableBody2D" parent="Blocks"]
+position = Vector2(1270, 416)
 script = ExtResource("move")
-size = Vector2(160, 28)
-offset = Vector2(0, -170)
+size = Vector2(300, 30)
+color = Color(0.45, 1, 0.25, 1)
+offset = Vector2(1120, 0)
+speed = 95.0
+
+[node name="B_TopOrange" type="Area2D" parent="Blocks"]
+position = Vector2(4160, 520)
+script = ExtResource("bounce")
+size = Vector2(357.14, 30)
+bounce_force = 760.0
+
+[node name="B_MidOrange" type="Area2D" parent="Blocks"]
+position = Vector2(10720, 1090)
+script = ExtResource("bounce")
+size = Vector2(621.43, 30)
+bounce_force = 760.0
+
+[node name="M_MidGreenPlatform" type="AnimatableBody2D" parent="Blocks"]
+position = Vector2(8420, 875)
+script = ExtResource("move")
+size = Vector2(293.02, 30)
+color = Color(0.45, 1, 0.25, 1)
+offset = Vector2(1600, 0)
 speed = 100.0
-color = Color(0.25, 0.9, 0.25)
 
-[node name="M_Cross" type="AnimatableBody2D" parent="Blocks"]
-position = Vector2(2060, 390)
+[node name="S_MoverTop" type="AnimatableBody2D" parent="Blocks"]
+position = Vector2(5730, 360)
 script = ExtResource("move")
-size = Vector2(170, 28)
-offset = Vector2(220, 0)
-speed = 105.0
+size = Vector2(338.37, 30)
+offset = Vector2(0, 0)
+speed = 1.0
+bounce_height = 250.0
 
-[node name="C_MidRisk" type="StaticBody2D" parent="Blocks"]
-position = Vector2(1740, 515)
-script = ExtResource("collapse")
-size = Vector2(180, 28)
+[node name="S_MoverMid" type="AnimatableBody2D" parent="Blocks"]
+position = Vector2(8570, 640)
+script = ExtResource("move")
+size = Vector2(359.3, 30)
+offset = Vector2(0, 0)
+speed = 1.0
+bounce_height = 250.0
 
-[node name="Stone_ViewPoint" type="Area2D" parent="Markers"]
-position = Vector2(2540, 470)
-script = ExtResource("stone")
-kind = "stone"
-
-[node name="PPTTag" type="Label" parent="Labels"]
-position = Vector2(80, 300)
-text = "PPT7: bottom water/spikes, mid berry/risk, upper exit path, right-side stone"
+[node name="P_BounceOrange_C" type="AnimatableBody2D" parent="Blocks"]
+position = Vector2(10740, 640)
+script = ExtResource("move")
+size = Vector2(408.14, 30)
+offset = Vector2(0, 0)
+speed = 1.0
+bounce_height = 250.0

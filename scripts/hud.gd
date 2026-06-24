@@ -7,6 +7,7 @@ var limits_label: Label
 var help_label: Label
 var pause_panel: Panel
 var rules_panel: Panel
+var legend_panel: Panel
 var resume_requested: Callable
 var load_checkpoint_requested: Callable
 var restart_level_requested: Callable
@@ -19,7 +20,7 @@ func _ready() -> void:
 	state_label = _make_label(Vector2(16, 40), 16)
 	limits_label = _make_label(Vector2(16, 68), 16)
 	help_label = _make_label(Vector2(16, 660), 14)
-	help_label.text = "A/D移动 H跳跃 Space冲刺 J攻击/交互 Esc暂停 R重开 | 白盒原型"
+	help_label.text = "A/D移动 H跳跃 Space冲刺 J攻击/交互 Esc暂停 R重开 1-5跳关 | 白盒原型"
 	pause_panel = Panel.new()
 	pause_panel.visible = false
 	pause_panel.position = Vector2(430, 220)
@@ -35,6 +36,7 @@ func _ready() -> void:
 	_add_pause_button("Restart Level", Vector2(24, 176), "_on_restart_level_pressed")
 	_add_pause_button("Restart Run", Vector2(24, 216), "_on_restart_run_pressed")
 	_build_rules_panel()
+	_build_legend_panel()
 
 
 func _make_label(pos: Vector2, font_size: int) -> Label:
@@ -65,6 +67,19 @@ func _build_rules_panel() -> void:
 	text.text = "规则\n1. 去程到第五关拿传承\n2. 返程带传承回起点\n3. 每关限制按键次数\n4. 返程死亡生成最多2个残影\n5. L读档，R重开本关，Shift+R重开整轮"
 	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	rules_panel.add_child(text)
+
+
+func _build_legend_panel() -> void:
+	legend_panel = Panel.new()
+	legend_panel.position = Vector2(910, 520)
+	legend_panel.size = Vector2(340, 180)
+	add_child(legend_panel)
+	var text := Label.new()
+	text.position = Vector2(12, 10)
+	text.size = Vector2(312, 160)
+	text.text = "操作 / 图例\nA/D 左右移动 | H 跳跃 | Space 冲刺 | J 攻击/交互\nL 读档 | R 重开当前关 | Shift+R 重开整轮\nGM 1-5 直跳关卡\n蓝色矩形：玩家\n灰色平台：安全落脚\n粉色平台：塌陷平台\n浅黄区域：水流/危险槽\n蓝色尖刺：伤害 | 黄色竖条：存档点"
+	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	legend_panel.add_child(text)
 
 
 func update_debug(level_number: int, level_title: String, limiter: InputLimiter) -> void:

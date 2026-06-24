@@ -70,12 +70,14 @@ func _process(_delta: float) -> void:
 			restart_run()
 		else:
 			restart_current_level()
+	_try_gm_level_shortcuts()
 	if not paused:
 		_refresh_hud()
 
 
 func load_level(level_number: int) -> void:
 	GameState.current_level = clampi(level_number, 1, 5)
+	_ensure_progression_unlocks()
 	current_level_data = LevelDataScript.get_level(GameState.current_level)
 	for child in level_root.get_children():
 		child.queue_free()
@@ -92,12 +94,20 @@ func load_level(level_number: int) -> void:
 	_refresh_hud()
 
 
+func _ensure_progression_unlocks() -> void:
+	if GameState.phase == GameState.PHASE_OUTBOUND:
+		if GameState.current_level >= 2 and not GameState.has_double_jump:
+			GameState.award_double_jump()
+
+
 func _wire_level_scene(root: Node) -> void:
 	for node in root.find_children("*", "", true, false):
 		if node.has_signal("reached"):
 			node.reached.connect(_on_exit_entered)
 		elif node.has_signal("activated"):
 			node.activated.connect(_on_stone_activated)
+		elif node.has_signal("interacted"):
+			node.interacted.connect(_on_interacted)
 		elif node is Enemy:
 			node.player = player
 			node.defeated.connect(_on_enemy_defeated)
@@ -169,6 +179,27 @@ func load_checkpoint() -> void:
 func _get_checkpoint_position() -> Vector2:
 	var checkpoint := current_level_scene.find_child("Checkpoint", true, false)
 	return checkpoint.global_position if checkpoint != null else _get_level_spawn()
+
+
+func _try_gm_level_shortcuts() -> void:
+	if paused:
+		return
+	var debug_level := 0
+	if Input.is_key_pressed(KEY_1):
+		debug_level = 1
+	elif Input.is_key_pressed(KEY_2):
+		debug_level = 2
+	elif Input.is_key_pressed(KEY_3):
+		debug_level = 3
+	elif Input.is_key_pressed(KEY_4):
+		debug_level = 4
+	elif Input.is_key_pressed(KEY_5):
+		debug_level = 5
+	if debug_level == 0 or debug_level == GameState.current_level:
+		return
+	set_pause(false)
+	load_level(debug_level)
+	hud.show_message("GM：已跳到第 %d 关" % debug_level)
 
 
 func _create_player() -> Player:

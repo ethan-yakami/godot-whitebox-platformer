@@ -2,11 +2,21 @@
 extends Node2D
 class_name JumpArcGuide
 
+@export var sync_with_player_defaults := true:
+	set(value):
+		sync_with_player_defaults = value
+		_sync_player_defaults()
+		queue_redraw()
+@export_file("*.gd") var player_script_path := "res://scripts/player.gd":
+	set(value):
+		player_script_path = value
+		_sync_player_defaults()
+		queue_redraw()
 @export var player_speed := 256.0:
 	set(value):
 		player_speed = value
 		queue_redraw()
-@export var jump_velocity := -832.0:
+@export var jump_velocity := -775.0:
 	set(value):
 		jump_velocity = value
 		queue_redraw()
@@ -69,12 +79,14 @@ class_name JumpArcGuide
 
 
 func _ready() -> void:
+	_sync_player_defaults()
 	queue_redraw()
 
 
 func _draw() -> void:
 	if not Engine.is_editor_hint():
 		return
+	_sync_player_defaults()
 	var horizontal_speed := player_speed * horizontal_speed_scale * float(direction)
 	var normal_jump_points := _make_jump_points(horizontal_speed, jump_velocity, simulation_time)
 	var fall_inertia_points := _make_jump_points(horizontal_speed, 0.0, fall_time)
@@ -146,3 +158,35 @@ func _draw_player_box(
 	draw_circle(center, 6.0 if is_origin_box else 3.0, Color(1.0, 0.05, 0.05, 1.0) if is_origin_box else outline_color)
 	if show_labels and is_origin_box:
 		draw_string(ThemeDB.fallback_font, Vector2(player_size.x * 0.5 + 8, -8), "player center", HORIZONTAL_ALIGNMENT_LEFT, -1.0, 13, player_box_outline_color)
+
+
+func _sync_player_defaults() -> void:
+	if not sync_with_player_defaults:
+		return
+	if player_script_path.is_empty():
+		return
+	if not ResourceLoader.exists(player_script_path):
+		return
+	var player_text := FileAccess.get_file_as_string(player_script_path)
+	if player_text.is_empty():
+		return
+	var next_speed: Variant = _extract_float_default(player_text, "speed")
+	var next_jump_velocity: Variant = _extract_float_default(player_text, "jump_velocity")
+	var next_gravity: Variant = _extract_float_default(player_text, "gravity")
+	if next_speed != null and not is_equal_approx(player_speed, float(next_speed)):
+		player_speed = float(next_speed)
+	if next_jump_velocity != null and not is_equal_approx(jump_velocity, float(next_jump_velocity)):
+		jump_velocity = float(next_jump_velocity)
+	if next_gravity != null and not is_equal_approx(gravity, float(next_gravity)):
+		gravity = float(next_gravity)
+
+
+func _extract_float_default(script_text: String, property_name: String) -> Variant:
+	var regex := RegEx.new()
+	var pattern := "(?:@export\\s+)?var\\s+" + property_name + "\\s*:=\\s*(-?\\d+(?:\\.\\d+)?)"
+	if regex.compile(pattern) != OK:
+		return null
+	var result := regex.search(script_text)
+	if result == null:
+		return null
+	return result.get_string(1).to_float()

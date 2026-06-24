@@ -25,7 +25,8 @@ def main() -> int:
         "limit_denied",
         "void_recover",
         "GameState.has_attack",
-        "jump_velocity := -832.0",
+        "jump_velocity := -775.0",
+        "body.position = Vector2(-whitebox_size.x * 0.5, -whitebox_size.y)",
     ])
     failures += require("scripts/game_state.gd", [
         "var max_ghosts := 2",
@@ -56,6 +57,11 @@ def main() -> int:
         'limiter.configure({})',
         "_on_stone_activated",
         "_apply_level_layout_overrides",
+        "_try_gm_level_shortcuts",
+        "_ensure_progression_unlocks",
+        "KEY_1",
+        "load_level(debug_level)",
+        "GameState.current_level >= 2 and not GameState.has_double_jump",
     ])
     failures += require("scripts/level_editor.gd", [
         "class_name LevelEditor",
@@ -94,10 +100,61 @@ def main() -> int:
         "NoJumpGlide",
         "J9_FinalClimb",
         "inertia",
+        "moving_spike.gd",
+        "S_FinalWallTeeth",
+        "offset = Vector2(-1080, 0)",
+        "S2_OrangeInWater",
+        "bounce_height",
+    ])
+    failures += require("levels/level_3.tscn", [
+        "P_TopCheckpoint",
+        "HZ_MovingSpikeLane_Top",
+        "HZ_MovingSpikeLane_Mid",
+        "S_MoverTop",
+        "S_MoverMid",
+        "M_LowGreenPlatform",
+        "M_MidGreenPlatform",
+        "P_CollapseMid",
+        "B_MidOrange",
+        "Berry_Forest",
+        "Stone_ForestLore",
+        "GreenStartOutbound",
+        "BlackStartReturn",
+        "PPT7 exact-legend rebuild",
+    ])
+    failures += require("levels/level_4.tscn", [
+        "P4_Scene1_StartFloor",
+        "P4_Scene1_TopBridge",
+        "P4_Scene2_LeftTower",
+        "P4_Scene2_FinalShelf",
+        "HZ4_Scene1_MovingSpikeLane",
+        "HZ4_Scene2_CenterDrop",
+        "M4_Scene1_GreenMover",
+        "M4_Scene2_GreenMover",
+        "B4_Scene2_OrangePad_A",
+        "Berry_Cave",
+        "Stone_AttackUnlock",
+        "BlackStartReturn",
+        "PPT8-9 exact-legend rebuild",
+    ])
+    failures += require("levels/level_5.tscn", [
+        "P5_StartFloor",
+        "P5_LongBossWalk",
+        "P5_AltarFloor",
+        "HZ5_CeilingMover",
+        "M5_LeftGreenMover",
+        "B5_LowerOrangePad",
+        "C5_LowerPink",
+        "Berry_Tower",
+        "legacy_boss",
+        "Altar_Legacy",
+        "BlackBossDrop",
+        "PPT10 exact-legend rebuild",
     ])
     for component in [
         "whitebox_platform",
         "spike_strip",
+        "moving_spike",
         "water_zone",
         "bounce_pad",
         "checkpoint",
@@ -114,7 +171,7 @@ def main() -> int:
         "@tool",
         "class_name JumpArcGuide",
         "player_speed := 256.0",
-        "jump_velocity := -832.0",
+        "jump_velocity := -775.0",
         "gravity := 1600.0",
         "player_size := Vector2(48, 64)",
         "show_player_samples",
@@ -138,6 +195,26 @@ def main() -> int:
         "draw_line",
         "draw_circle",
         "queue_redraw",
+        "bounce_height",
+        "BounceTrigger",
+        "Area2D.new()",
+        "body.bounce(",
+        "sqrt(2.0 * body.gravity * bounce_height)",
+    ])
+    failures += require("scripts/components/moving_spike.gd", [
+        "class_name MovingSpike",
+        "offset := Vector2(128, 0)",
+        "speed := 128.0",
+        "_physics_process",
+        "global_position = _origin.lerp(_origin + offset, alpha)",
+        "Polygon2D",
+        "body_entered.connect",
+        "body.take_damage(damage)",
+    ])
+    failures += require("docs/07_关卡拖拽编辑指南.md", [
+        "MovingPlatform",
+        "bounce_height",
+        "橙色移动平台",
     ])
     failures += require("levels/level_1.tscn", [
         "JumpArcGuide",
@@ -151,11 +228,21 @@ def main() -> int:
     ])
     failures += require("scripts/hud.gd", [
         "rules_panel",
+        "legend_panel",
         "Resume",
         "Load Checkpoint",
         "Restart Level",
         "Restart Run",
         "攻击",
+        "A/D 左右移动",
+        "H 跳跃",
+        "R 重开当前关",
+        "GM 1-5 直跳关卡",
+        "蓝色矩形：玩家",
+        "灰色平台：安全落脚",
+        "粉色平台：塌陷平台",
+        "浅黄区域：水流/危险槽",
+        "蓝色尖刺：伤害",
     ])
     failures += require("scripts/enemy.gd", [
         "signal defeated",

@@ -1,156 +1,506 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene format=3 uid="uid://cyt26pnx7iy2r"]
 
-[ext_resource type="Script" path="res://scripts/components/whitebox_platform.gd" id="plat"]
-[ext_resource type="Script" path="res://scripts/components/spike_strip.gd" id="spike"]
-[ext_resource type="Script" path="res://scripts/components/water_zone.gd" id="water"]
-[ext_resource type="Script" path="res://scripts/moving_platform.gd" id="move"]
-[ext_resource type="Script" path="res://scripts/collapse_platform.gd" id="collapse"]
-[ext_resource type="Script" path="res://scripts/components/bounce_pad.gd" id="bounce"]
-[ext_resource type="Script" path="res://scripts/components/checkpoint.gd" id="checkpoint"]
-[ext_resource type="Script" path="res://scripts/components/exit_gate.gd" id="exit"]
-[ext_resource type="Script" path="res://scripts/components/stone.gd" id="stone"]
-[ext_resource type="Script" path="res://scripts/components/altar.gd" id="altar"]
-[ext_resource type="Script" path="res://scripts/enemy.gd" id="enemy"]
-[ext_resource type="Script" path="res://scripts/components/start_view_box.gd" id="viewbox"]
+[ext_resource type="Script" uid="uid://b2agwrs5mf3lb" path="res://scripts/components/bounce_pad.gd" id="bounce"]
+[ext_resource type="Script" uid="uid://3i2eydrk1lnc" path="res://scripts/components/checkpoint.gd" id="checkpoint"]
+[ext_resource type="Script" uid="uid://b3ecyv0jojs1f" path="res://scripts/collapse_platform.gd" id="collapse"]
+[ext_resource type="Script" uid="uid://datb8wo6eb6la" path="res://scripts/enemy.gd" id="enemy"]
+[ext_resource type="Script" uid="uid://dpn58qh1agfbv" path="res://scripts/components/exit_gate.gd" id="exit"]
+[ext_resource type="Script" uid="uid://dnlkmn8wyblkv" path="res://scripts/hazard.gd" id="hazard"]
+[ext_resource type="Script" uid="uid://dor7f4pup5urn" path="res://scripts/interactable.gd" id="interactable"]
+[ext_resource type="Script" uid="uid://cxglkdlxofarb" path="res://scripts/components/jump_arc_guide.gd" id="jump_arc"]
+[ext_resource type="Script" uid="uid://c6ir1r8t0tp2k" path="res://scripts/moving_platform.gd" id="move"]
+[ext_resource type="Script" uid="uid://evvp86hat7m2" path="res://scripts/components/moving_spike.gd" id="moving_spike"]
+[ext_resource type="Script" uid="uid://b1vwfmjgxp4v4" path="res://scripts/components/whitebox_platform.gd" id="plat"]
+[ext_resource type="Script" uid="uid://h4n37th0nn6i" path="res://scripts/components/player_size_guide.gd" id="player_size"]
+[ext_resource type="Script" uid="uid://8efjynrk1y42" path="res://scripts/components/spike_strip.gd" id="spike"]
+[ext_resource type="Script" uid="uid://bhi01ruligyal" path="res://scripts/components/stone.gd" id="stone"]
+[ext_resource type="Script" uid="uid://cy4pkr26s605j" path="res://scripts/components/start_view_box.gd" id="viewbox"]
 
-[node name="Level4" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_red_left"]
+size = Vector2(304, 32)
 
-[node name="Route" type="Node2D" parent="."]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_red_right"]
+size = Vector2(266, 32)
 
-[node name="Blocks" type="Node2D" parent="."]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_scene2_red_short"]
+size = Vector2(172, 30)
 
-[node name="Hazards" type="Node2D" parent="."]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_scene2_red_long"]
+size = Vector2(208, 30)
 
-[node name="Markers" type="Node2D" parent="."]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_berry"]
+size = Vector2(52, 52)
 
-[node name="Guides" type="Node2D" parent="."]
+[node name="Level4" type="Node2D" unique_id=222348288]
 
-[node name="Labels" type="Node2D" parent="."]
+[node name="Route" type="Node2D" parent="." unique_id=477284031]
 
-[node name="Actors" type="Node2D" parent="."]
+[node name="Blocks" type="Node2D" parent="." unique_id=235402517]
 
-[node name="StartViewBox" type="Node2D" parent="Guides"]
-position = Vector2(0, 210)
-script = ExtResource("viewbox")
-size = Vector2(1120, 500)
-
-[node name="SpawnPoint" type="Marker2D" parent="Markers"]
-position = Vector2(120, 640)
-
-[node name="ReturnSpawnPoint" type="Marker2D" parent="Markers"]
-position = Vector2(3420, 190)
-
-[node name="Checkpoint" type="Area2D" parent="Markers"]
-position = Vector2(120, 640)
-script = ExtResource("checkpoint")
-
-[node name="ExitGate" type="Area2D" parent="Markers"]
-position = Vector2(3580, 160)
-script = ExtResource("exit")
-
-[node name="Route" type="Label" parent="Labels"]
-position = Vector2(60, 120)
-text = "Route: PPT8-9 溶洞两段；先到石碑解锁攻击，再过敌人与竖井到右上终点。"
-
-[node name="P_Start" type="StaticBody2D" parent="Blocks"]
-position = Vector2(0, 720)
+[node name="P4_Scene1_StartFloor" type="StaticBody2D" parent="Blocks" unique_id=22090557]
+position = Vector2(0, 1474)
 script = ExtResource("plat")
-size = Vector2(330, 36)
+size = Vector2(300, 30)
 
-[node name="P_LongSpikePrep" type="StaticBody2D" parent="Blocks"]
-position = Vector2(430, 670)
+[node name="P4_Scene1_StartFloor_B" type="StaticBody2D" parent="Blocks" unique_id=1795951137]
+position = Vector2(300, 1474)
 script = ExtResource("plat")
-size = Vector2(330, 34)
+size = Vector2(300, 30)
 
-[node name="P_StoneBase" type="StaticBody2D" parent="Blocks"]
-position = Vector2(900, 610)
+[node name="P4_Scene1_StartFloor_C" type="StaticBody2D" parent="Blocks" unique_id=1349534741]
+position = Vector2(600, 1474)
 script = ExtResource("plat")
-size = Vector2(320, 34)
+size = Vector2(84, 30)
 
-[node name="P_AfterStone" type="StaticBody2D" parent="Blocks"]
-position = Vector2(1320, 560)
+[node name="P4_Scene1_LeftStep" type="StaticBody2D" parent="Blocks" unique_id=501882265]
+position = Vector2(94, 1168)
 script = ExtResource("plat")
-size = Vector2(280, 34)
+size = Vector2(86, 30)
 
-[node name="P_BattleFloor" type="StaticBody2D" parent="Blocks"]
-position = Vector2(1720, 650)
+[node name="P4_Ref_LeftRoom_MidFloor" type="StaticBody2D" parent="Blocks" unique_id=1673572088]
+position = Vector2(4, 1334)
 script = ExtResource("plat")
-size = Vector2(520, 36)
+size = Vector2(240, 30)
 
-[node name="P_ShaftLeft" type="StaticBody2D" parent="Blocks"]
-position = Vector2(2360, 520)
+[node name="P4_Ref_LeftRoom_RightStep" type="StaticBody2D" parent="Blocks" unique_id=549482790]
+position = Vector2(604, 1278)
 script = ExtResource("plat")
-size = Vector2(220, 34)
+size = Vector2(62, 86)
 
-[node name="P_ShaftTop" type="StaticBody2D" parent="Blocks"]
-position = Vector2(2680, 360)
+[node name="C4_Scene1_Pink" type="StaticBody2D" parent="Blocks" unique_id=2085145784]
+position = Vector2(412, 1244)
+script = ExtResource("collapse")
+size = Vector2(80, 30)
+collapse_delay = 0.55
+
+[node name="P4_Scene1_TopBridge" type="StaticBody2D" parent="Blocks" unique_id=566789046]
+position = Vector2(284, 1068)
 script = ExtResource("plat")
-size = Vector2(220, 34)
+size = Vector2(300, 30)
 
-[node name="P_FinalMoveLand" type="StaticBody2D" parent="Blocks"]
-position = Vector2(3060, 280)
+[node name="P4_Scene1_TopBridge_B" type="StaticBody2D" parent="Blocks" unique_id=496361553]
+position = Vector2(584, 1068)
 script = ExtResource("plat")
-size = Vector2(220, 34)
+size = Vector2(300, 30)
 
-[node name="P_Goal" type="StaticBody2D" parent="Blocks"]
-position = Vector2(3520, 230)
+[node name="P4_Scene1_TopBridge_C" type="StaticBody2D" parent="Blocks" unique_id=212452488]
+position = Vector2(884, 1068)
 script = ExtResource("plat")
-size = Vector2(230, 34)
+size = Vector2(10, 30)
 
-[node name="S_LongSpikeBelt" type="Area2D" parent="Hazards"]
-position = Vector2(520, 612)
-script = ExtResource("spike")
-count = 5
-direction = "up"
-
-[node name="W_RedDangerSlot" type="Area2D" parent="Hazards"]
-position = Vector2(1180, 690)
-script = ExtResource("water")
-size = Vector2(760, 72)
-push_force = Vector2(0, 0)
-
-[node name="Stone_AttackUnlock" type="Area2D" parent="Markers"]
-position = Vector2(1030, 540)
-script = ExtResource("stone")
-kind = "stone"
-
-[node name="Enemy_BlackBall_A" type="CharacterBody2D" parent="Actors"]
-position = Vector2(1820, 610)
-script = ExtResource("enemy")
-health = 4
-patrol_distance = 180.0
-
-[node name="Enemy_BlackBall_B" type="CharacterBody2D" parent="Actors"]
-position = Vector2(2100, 610)
-script = ExtResource("enemy")
-health = 4
-patrol_distance = 140.0
-
-[node name="W_VerticalColumn" type="Area2D" parent="Hazards"]
-position = Vector2(2440, 300)
-script = ExtResource("water")
-size = Vector2(110, 300)
-push_force = Vector2(0, -120)
-
-[node name="S_SideLeft" type="Area2D" parent="Hazards"]
-position = Vector2(2580, 360)
-script = ExtResource("spike")
-count = 5
-direction = "left"
-
-[node name="M_FinalLift" type="AnimatableBody2D" parent="Blocks"]
-position = Vector2(2920, 430)
+[node name="M4_Scene1_GreenMover" type="AnimatableBody2D" parent="Blocks" unique_id=1541497507]
+position = Vector2(788, 1202)
 script = ExtResource("move")
-size = Vector2(170, 28)
-offset = Vector2(0, -190)
+size = Vector2(64, 30)
+color = Color(0.55, 0.9, 0.52, 1)
+offset = Vector2(116, 0)
+speed = 96.0
+
+[node name="B4_Scene2_OrangePad_A" type="Area2D" parent="Blocks" unique_id=1103164351]
+position = Vector2(668, 1340)
+script = ExtResource("bounce")
+size = Vector2(48, 30)
+
+[node name="C4_Scene2_Pink" type="StaticBody2D" parent="Blocks" unique_id=2146479356]
+position = Vector2(1136, 1340)
+script = ExtResource("collapse")
+size = Vector2(80, 30)
+collapse_delay = 0.55
+
+[node name="P4_Scene2_LeftTower" type="StaticBody2D" parent="Blocks" unique_id=485661908]
+position = Vector2(1555, 1178)
+script = ExtResource("plat")
+size = Vector2(288, 262)
+
+[node name="P4_Scene2_FinalShelf" type="StaticBody2D" parent="Blocks" unique_id=173670832]
+position = Vector2(2675, 788)
+script = ExtResource("plat")
+size = Vector2(120, 30)
+
+[node name="P4_Ref_RightWall" type="StaticBody2D" parent="Blocks" unique_id=234421657]
+position = Vector2(1418, 1156)
+script = ExtResource("plat")
+size = Vector2(30, 348)
+
+[node name="P4_Ref_Scene2_LeftStarPillar" type="StaticBody2D" parent="Blocks" unique_id=2076781330]
+position = Vector2(1500, 1098)
+script = ExtResource("plat")
+size = Vector2(55, 80)
+
+[node name="P4_Ref_Scene2_CenterWall" type="StaticBody2D" parent="Blocks" unique_id=1051849341]
+position = Vector2(2014, 970)
+script = ExtResource("plat")
+size = Vector2(38, 470)
+
+[node name="P4_Ref_Scene2_RightGapWall" type="StaticBody2D" parent="Blocks" unique_id=1892950275]
+position = Vector2(2214, 1183)
+script = ExtResource("plat")
+size = Vector2(38, 257)
+
+[node name="P4_Ref_Scene2_RightWall" type="StaticBody2D" parent="Blocks" unique_id=1513186472]
+position = Vector2(2482, 1055)
+script = ExtResource("plat")
+size = Vector2(65, 385)
+
+[node name="P4_Ref_Scene2_RightWallStep" type="StaticBody2D" parent="Blocks" unique_id=686456108]
+position = Vector2(2482, 1210)
+script = ExtResource("plat")
+size = Vector2(95, 30)
+
+[node name="C4_Scene2_Pink_B" type="StaticBody2D" parent="Blocks" unique_id=1586655307]
+position = Vector2(1906, 1075)
+script = ExtResource("collapse")
+size = Vector2(56, 30)
+collapse_delay = 0.55
+
+[node name="B4_Scene2_OrangePad_B" type="Area2D" parent="Blocks" unique_id=1956319896]
+position = Vector2(2282, 995)
+script = ExtResource("bounce")
+size = Vector2(104, 30)
+
+[node name="M4_Scene2_GreenMover" type="AnimatableBody2D" parent="Blocks" unique_id=189446130]
+position = Vector2(2566, 925)
+script = ExtResource("move")
+size = Vector2(60, 30)
+color = Color(0.55, 0.9, 0.52, 1)
+offset = Vector2(108, 0)
 speed = 100.0
 
-[node name="W_FinalRedSlot" type="Area2D" parent="Hazards"]
-position = Vector2(3120, 560)
-script = ExtResource("water")
-size = Vector2(420, 70)
-push_force = Vector2(0, 0)
+[node name="Hazards" type="Node2D" parent="." unique_id=1788233682]
 
-[node name="PPTTag" type="Label" parent="Labels"]
-position = Vector2(80, 300)
-text = "PPT8-9: stone unlocks J attack; second half has enemies, shaft, side spikes"
+[node name="P4_Ref_TopYellowColumn_A" type="Polygon2D" parent="Hazards" unique_id=74781317]
+position = Vector2(296, 732)
+color = Color(1, 0.82, 0.25, 0.45)
+polygon = PackedVector2Array(0, 0, 84, 0, 84, 336, 0, 336)
+
+[node name="P4_Ref_TopYellowColumn_B" type="Polygon2D" parent="Hazards" unique_id=808720256]
+position = Vector2(508, 732)
+color = Color(1, 0.82, 0.25, 0.45)
+polygon = PackedVector2Array(0, 0, 86, 0, 86, 336, 0, 336)
+
+[node name="P4_Ref_TopYellowColumn_C" type="Polygon2D" parent="Hazards" unique_id=42810299]
+position = Vector2(730, 732)
+color = Color(1, 0.82, 0.25, 0.45)
+polygon = PackedVector2Array(0, 0, 86, 0, 86, 336, 0, 336)
+
+[node name="HZ4_Scene1_MovingSpikeLane_A" type="Area2D" parent="Hazards" unique_id=731410251]
+position = Vector2(296, 732)
+script = ExtResource("moving_spike")
+direction = "down"
+offset = Vector2(0, 220)
+speed = 122.0
+
+[node name="HZ4_Scene1_MovingSpikeLane_B" type="Area2D" parent="Hazards" unique_id=1979328676]
+position = Vector2(508, 732)
+script = ExtResource("moving_spike")
+direction = "down"
+offset = Vector2(0, 220)
+speed = 122.0
+
+[node name="HZ4_Scene2_CenterDrop" type="Area2D" parent="Hazards" unique_id=958720352]
+position = Vector2(730, 732)
+script = ExtResource("moving_spike")
+direction = "down"
+offset = Vector2(0, 220)
+speed = 122.0
+
+[node name="HZ4_Scene1_MovingSpikeLane" type="Node2D" parent="Hazards" unique_id=1800809864]
+
+[node name="S4_Scene1_TopSpikes_A" type="Area2D" parent="Hazards" unique_id=1170698471]
+position = Vector2(406, 1020)
+script = ExtResource("spike")
+
+[node name="S4_Scene1_TopSpikes_B" type="Area2D" parent="Hazards" unique_id=1636615499]
+position = Vector2(630, 1020)
+script = ExtResource("spike")
+
+[node name="S4_Scene1_FloorBelt" type="Area2D" parent="Hazards" unique_id=36788622]
+position = Vector2(322, 1434)
+script = ExtResource("spike")
+count = 8
+
+[node name="P4_Ref_RightYellowLane" type="Polygon2D" parent="Hazards" unique_id=1277479736]
+position = Vector2(668, 1334)
+color = Color(1, 0.82, 0.25, 0.45)
+polygon = PackedVector2Array(0, 0, 688, 0, 688, 40, 0, 40)
+
+[node name="P4_Ref_OrangeArrow" type="Polygon2D" parent="Hazards" unique_id=1543130445]
+position = Vector2(668, 1342)
+color = Color(1, 0.45, 0.1, 1)
+polygon = PackedVector2Array(0, 0, 48, 14, 0, 28)
+
+[node name="P4_Ref_RedSlot_Left" type="Area2D" parent="Hazards" unique_id=691260781]
+position = Vector2(668, 1450)
+script = ExtResource("hazard")
+
+[node name="Visual" type="Polygon2D" parent="Hazards/P4_Ref_RedSlot_Left" unique_id=13016477]
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 304, 0, 304, 32, 0, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hazards/P4_Ref_RedSlot_Left" unique_id=41576201]
+position = Vector2(152, 16)
+shape = SubResource("RectangleShape2D_red_left")
+
+[node name="P4_Ref_RedSlot_Right" type="Area2D" parent="Hazards" unique_id=303326917]
+position = Vector2(1090, 1450)
+script = ExtResource("hazard")
+
+[node name="Visual" type="Polygon2D" parent="Hazards/P4_Ref_RedSlot_Right" unique_id=1659564855]
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 266, 0, 266, 32, 0, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hazards/P4_Ref_RedSlot_Right" unique_id=831721559]
+position = Vector2(133, 16)
+shape = SubResource("RectangleShape2D_red_right")
+
+[node name="P4_Ref_RedCross_StoneMarker" type="Polygon2D" parent="Hazards" unique_id=237512445]
+position = Vector2(1010, 1450)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(-16, -6, -6, -6, -6, -16, 6, -16, 6, -6, 16, -6, 16, 6, 6, 6, 6, 16, -6, 16, -6, 6, -16, 6)
+
+[node name="P4_Ref_RightStarGoal" type="Polygon2D" parent="Hazards" unique_id=656977647]
+position = Vector2(1390, 1112)
+color = Color(0.25, 0.45, 0.85, 1)
+polygon = PackedVector2Array(0, -34, 10, -10, 34, -10, 16, 4, 22, 30, 0, 15, -22, 30, -16, 4, -34, -10, -10, -10)
+
+[node name="P4_Ref_Scene2_LeftStar" type="Polygon2D" parent="Hazards" unique_id=874265198]
+position = Vector2(1522, 1074)
+color = Color(0.25, 0.45, 0.85, 1)
+polygon = PackedVector2Array(0, -34, 10, -10, 34, -10, 16, 4, 22, 30, 0, 15, -22, 30, -16, 4, -34, -10, -10, -10)
+
+[node name="P4_Ref_Scene2_YellowColumn_A" type="Polygon2D" parent="Hazards" unique_id=1411759826]
+position = Vector2(1764, 720)
+color = Color(1, 0.82, 0.25, 0.45)
+polygon = PackedVector2Array(0, 0, 78, 0, 78, 458, 0, 458)
+
+[node name="P4_Ref_Scene2_CenterYellowColumn" type="Polygon2D" parent="Hazards" unique_id=1094971582]
+position = Vector2(2098, 720)
+color = Color(1, 0.82, 0.25, 0.45)
+polygon = PackedVector2Array(0, 0, 78, 0, 78, 555, 0, 555)
+
+[node name="P4_Ref_Scene2_RightYellowColumn" type="Polygon2D" parent="Hazards" unique_id=1998516314]
+position = Vector2(2418, 720)
+color = Color(1, 0.82, 0.25, 0.45)
+polygon = PackedVector2Array(0, 0, 78, 0, 78, 337, 0, 337)
+
+[node name="P4_Ref_Scene2_YellowTopSpike_A" type="Area2D" parent="Hazards" unique_id=1391024388]
+position = Vector2(1764, 718)
+script = ExtResource("moving_spike")
+direction = "down"
+offset = Vector2(0, 180)
+speed = 122.0
+
+[node name="P4_Ref_Scene2_YellowTopSpike_B" type="Area2D" parent="Hazards" unique_id=720275674]
+position = Vector2(2098, 718)
+script = ExtResource("moving_spike")
+direction = "down"
+offset = Vector2(0, 180)
+speed = 122.0
+
+[node name="P4_Ref_Scene2_YellowTopSpike_C" type="Area2D" parent="Hazards" unique_id=1023049463]
+position = Vector2(2418, 718)
+script = ExtResource("moving_spike")
+direction = "down"
+offset = Vector2(0, 180)
+speed = 122.0
+
+[node name="P4_Ref_Scene2_RedSlot_Left" type="Area2D" parent="Hazards" unique_id=1077094159]
+position = Vector2(1843, 1408)
+script = ExtResource("hazard")
+
+[node name="Visual" type="Polygon2D" parent="Hazards/P4_Ref_Scene2_RedSlot_Left" unique_id=1868463472]
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 172, 0, 172, 30, 0, 30)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hazards/P4_Ref_Scene2_RedSlot_Left" unique_id=560413636]
+position = Vector2(86, 15)
+shape = SubResource("RectangleShape2D_scene2_red_short")
+
+[node name="P4_Ref_Scene2_RedSlot_Right" type="Area2D" parent="Hazards" unique_id=1167903422]
+position = Vector2(2252, 1412)
+script = ExtResource("hazard")
+
+[node name="Visual" type="Polygon2D" parent="Hazards/P4_Ref_Scene2_RedSlot_Right" unique_id=432414556]
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 208, 0, 208, 30, 0, 30)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hazards/P4_Ref_Scene2_RedSlot_Right" unique_id=200000347]
+position = Vector2(104, 15)
+shape = SubResource("RectangleShape2D_scene2_red_long")
+
+[node name="P4_Ref_Scene2_CenterSpikes" type="Area2D" parent="Hazards" unique_id=1686043908]
+position = Vector2(2052, 1366)
+script = ExtResource("spike")
+count = 6
+
+[node name="P4_Ref_Scene2_SideSpikes" type="Area2D" parent="Hazards" unique_id=1464956795]
+position = Vector2(2482, 1132)
+script = ExtResource("spike")
+direction = "right"
+
+[node name="P4_Ref_Scene2_RedCross" type="Polygon2D" parent="Hazards" unique_id=269591451]
+position = Vector2(2140, 1260)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(-18, -7, -7, -7, -7, -18, 7, -18, 7, -7, 18, -7, 18, 7, 7, 7, 7, 18, -7, 18, -7, 7, -18, 7)
+
+[node name="P4_Ref_Scene2_RightGoal" type="Polygon2D" parent="Hazards" unique_id=181249888]
+position = Vector2(2730, 770)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(0, -32, 12, -8, 36, -8, 18, 8, 24, 32, 0, 16, -24, 32, -18, 8, -36, -8, -12, -8)
+
+[node name="P4_Ref_Scene2_GoldReward" type="Polygon2D" parent="Hazards" unique_id=161500196]
+position = Vector2(2692, 748)
+color = Color(1, 0.82, 0.25, 1)
+polygon = PackedVector2Array(0, -34, 12, -12, 34, -12, 18, 6, 24, 30, 0, 18, -24, 30, -18, 6, -34, -12, -12, -12)
+
+[node name="Markers" type="Node2D" parent="." unique_id=681640489]
+
+[node name="SpawnPoint" type="Marker2D" parent="Markers" unique_id=45570419]
+position = Vector2(80, 1474)
+
+[node name="ReturnSpawnPoint" type="Marker2D" parent="Markers" unique_id=767548473]
+position = Vector2(2700, 788)
+
+[node name="Checkpoint" type="Area2D" parent="Markers" unique_id=213271381]
+position = Vector2(80, 1474)
+script = ExtResource("checkpoint")
+
+[node name="ExitGate" type="Area2D" parent="Markers" unique_id=938061978]
+position = Vector2(2700, 788)
+script = ExtResource("exit")
+size = Vector2(50, 90)
+
+[node name="Stone_AttackUnlock" type="Area2D" parent="Markers" unique_id=757607075]
+position = Vector2(1010, 1450)
+script = ExtResource("stone")
+size = Vector2(56, 56)
+
+[node name="Berry_Cave" type="Area2D" parent="Markers" unique_id=1498624280]
+position = Vector2(2692, 748)
+script = ExtResource("interactable")
+
+[node name="BerryVisual" type="Polygon2D" parent="Markers/Berry_Cave" unique_id=1162343527]
+color = Color(1, 0.05, 0.05, 1)
+polygon = PackedVector2Array(-26, 0, -10, 0, -10, -16, 10, -16, 10, 0, 26, 0, 26, 20, 10, 20, 10, 36, -10, 36, -10, 20, -26, 20)
+
+[node name="BerryStem" type="Polygon2D" parent="Markers/Berry_Cave" unique_id=1102901750]
+color = Color(0.1, 0.65, 0.16, 1)
+polygon = PackedVector2Array(-4, -18, 0, -30, 4, -18)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Markers/Berry_Cave" unique_id=1023054878]
+shape = SubResource("RectangleShape2D_berry")
+
+[node name="Guides" type="Node2D" parent="." unique_id=1061245627]
+
+[node name="StartViewBox" type="Node2D" parent="Guides" unique_id=1002778917]
+position = Vector2(0, 950)
+script = ExtResource("viewbox")
+size = Vector2(686, 520)
+
+[node name="PlayerSizeGuide_Reference" type="Node2D" parent="Guides" unique_id=578557581]
+position = Vector2(80, 1474)
+script = ExtResource("player_size")
+
+[node name="JumpArcGuide_Reference" type="Node2D" parent="Guides" unique_id=846194178]
+position = Vector2(-604, 1390)
+script = ExtResource("jump_arc")
+horizontal_speed_scale = 0.95
+
+[node name="JumpArcGuide_LeftRoom" type="Node2D" parent="Guides" unique_id=360887875]
+position = Vector2(1906, 1075)
+script = ExtResource("jump_arc")
+simulation_time = 0.9
+horizontal_speed_scale = 0.86
+
+[node name="JumpArcGuide_RightLane" type="Node2D" parent="Guides" unique_id=1532788581]
+position = Vector2(788, 1202)
+script = ExtResource("jump_arc")
+simulation_time = 0.85
+horizontal_speed_scale = 0.9
+
+[node name="P4_Ref_LeftRoom_BackWall" type="Line2D" parent="Guides" unique_id=1665896597]
+position = Vector2(4, 1092)
+points = PackedVector2Array(0, 0, 678, 0, 678, 422, 0, 422, 0, 0)
+width = 2.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="P4_Ref_GreenMoverDash_L" type="Line2D" parent="Guides" unique_id=797976961]
+position = Vector2(732, 1188)
+points = PackedVector2Array(0, 0, 0, 82)
+width = 2.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="P4_Ref_GreenMoverDash_R" type="Line2D" parent="Guides" unique_id=2053535709]
+position = Vector2(904, 1188)
+points = PackedVector2Array(0, 0, 0, 82)
+width = 2.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="GreenStartOutbound" type="Node2D" parent="Guides" unique_id=1029922873]
+position = Vector2(36, 1418)
+
+[node name="Arrow" type="Polygon2D" parent="Guides/GreenStartOutbound" unique_id=1852928387]
+color = Color(0, 0.72, 0.22, 0.95)
+polygon = PackedVector2Array(-24, -28, 24, -28, 24, 6, 48, 6, 0, 60, -48, 6, -24, 6)
+
+[node name="BlackStartReturn" type="Node2D" parent="Guides" unique_id=1940816981]
+position = Vector2(2730, 770)
+
+[node name="Arrow" type="Polygon2D" parent="Guides/BlackStartReturn" unique_id=211936465]
+color = Color(0.05, 0.05, 0.05, 0.95)
+polygon = PackedVector2Array(-38, -28, 0, -28, 0, -58, 40, -58, 40, -28, 78, -28, 20, 30, -38, -28)
+
+[node name="M4_Scene2_GreenMover_AliasForPPT8Compatibility" type="Node2D" parent="Guides" unique_id=2026869776]
+position = Vector2(2566, 925)
+
+[node name="P4_Ref_Scene2_MoverDash_L" type="Line2D" parent="Guides" unique_id=1518451078]
+position = Vector2(2516, 910)
+points = PackedVector2Array(0, 0, 0, 72)
+width = 2.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="P4_Ref_Scene2_MoverDash_R" type="Line2D" parent="Guides" unique_id=1236813468]
+position = Vector2(2674, 910)
+points = PackedVector2Array(0, 0, 0, 72)
+width = 2.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Labels" type="Node2D" parent="." unique_id=1148324929]
+
+[node name="Route" type="Label" parent="Labels" unique_id=1502019298]
+offset_left = 70.0
+offset_top = 760.0
+offset_right = 70.0
+offset_bottom = 760.0
+text = "Fourth level: PPT8-9 two-image one-to-one rebuild. Cave/edge route, right key x3, return left x5, attack unlock at the middle stone."
+
+[node name="JumpPlan" type="Label" parent="Labels" unique_id=1246843376]
+offset_left = 70.0
+offset_top = 820.0
+offset_right = 70.0
+offset_bottom = 820.0
+text = "Route: scene1 left room -> yellow lane stone -> scene2 combat area -> center rebound -> right green mover -> final reward."
+
+[node name="PPTTag" type="Label" parent="Labels" unique_id=233108466]
+offset_left = 70.0
+offset_top = 880.0
+offset_right = 70.0
+offset_bottom = 880.0
+text = "PPT8-9 exact-legend rebuild / PPT8-9 two-image one-to-one rebuild. Standard platform thickness is 30."
+
+[node name="Actors" type="Node2D" parent="." unique_id=420640401]
+
+[node name="Enemy_BlackBall_A" type="CharacterBody2D" parent="Actors" unique_id=302979635]
+position = Vector2(1680, 1135)
+script = ExtResource("enemy")
+patrol_distance = 100.0
+
+[node name="Enemy_BlackBall_B" type="CharacterBody2D" parent="Actors" unique_id=1289530675]
+position = Vector2(2638, 1400)
+script = ExtResource("enemy")
+patrol_distance = 60.0
+
+[node name="Enemy_BlackBall_C" type="CharacterBody2D" parent="Actors" unique_id=2385911]
+position = Vector2(2700, 1400)
+script = ExtResource("enemy")
+patrol_distance = 60.0

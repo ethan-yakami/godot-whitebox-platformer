@@ -7,7 +7,7 @@ signal limit_denied(action: String)
 signal void_recover
 
 @export var speed := 256.0
-@export var jump_velocity := -832.0
+@export var jump_velocity := -775.0
 @export var dash_speed := 720.0
 @export var dash_duration := 0.14
 @export var dash_cooldown := 0.5
@@ -16,6 +16,8 @@ signal void_recover
 @export var max_fall_speed := 900.0
 @export var invincible_time := 0.7
 @export var flash_timer := 0.08
+@export var whitebox_size := Vector2(48, 64)
+@export var void_y_threshold := 2200.0
 
 var limiter: InputLimiter
 var gravity := 1600.0
@@ -41,6 +43,8 @@ var _last_safe_position := Vector2.ZERO
 func _ready() -> void:
 	_spawn_position = global_position
 	_last_safe_position = global_position
+	body.size = whitebox_size
+	body.position = Vector2(-whitebox_size.x * 0.5, -whitebox_size.y)
 
 
 func _physics_process(delta: float) -> void:
@@ -61,7 +65,7 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor():
 		_last_safe_position = global_position
 
-	if global_position.y > 980:
+	if global_position.y > void_y_threshold:
 		var died_now := take_damage(2)
 		if not died_now:
 			global_position = _last_safe_position

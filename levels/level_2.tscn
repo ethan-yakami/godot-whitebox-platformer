@@ -1,254 +1,259 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene format=3 uid="uid://b3eban54r0eru"]
 
-[ext_resource type="Script" path="res://scripts/components/whitebox_platform.gd" id="plat"]
-[ext_resource type="Script" path="res://scripts/components/spike_strip.gd" id="spike"]
-[ext_resource type="Script" path="res://scripts/components/water_zone.gd" id="water"]
-[ext_resource type="Script" path="res://scripts/moving_platform.gd" id="move"]
-[ext_resource type="Script" path="res://scripts/collapse_platform.gd" id="collapse"]
-[ext_resource type="Script" path="res://scripts/components/bounce_pad.gd" id="bounce"]
-[ext_resource type="Script" path="res://scripts/components/checkpoint.gd" id="checkpoint"]
-[ext_resource type="Script" path="res://scripts/components/exit_gate.gd" id="exit"]
-[ext_resource type="Script" path="res://scripts/components/stone.gd" id="stone"]
-[ext_resource type="Script" path="res://scripts/components/altar.gd" id="altar"]
-[ext_resource type="Script" path="res://scripts/enemy.gd" id="enemy"]
-[ext_resource type="Script" path="res://scripts/components/start_view_box.gd" id="viewbox"]
-[ext_resource type="Script" path="res://scripts/components/jump_arc_guide.gd" id="jump_arc"]
+[ext_resource type="Script" uid="uid://3i2eydrk1lnc" path="res://scripts/components/checkpoint.gd" id="checkpoint"]
+[ext_resource type="Script" uid="uid://b3ecyv0jojs1f" path="res://scripts/collapse_platform.gd" id="collapse"]
+[ext_resource type="Script" uid="uid://dpn58qh1agfbv" path="res://scripts/components/exit_gate.gd" id="exit"]
+[ext_resource type="Script" uid="uid://cxglkdlxofarb" path="res://scripts/components/jump_arc_guide.gd" id="jump_arc"]
+[ext_resource type="Script" uid="uid://c6ir1r8t0tp2k" path="res://scripts/moving_platform.gd" id="move"]
+[ext_resource type="Script" uid="uid://evvp86hat7m2" path="res://scripts/components/moving_spike.gd" id="moving_spike"]
+[ext_resource type="Script" uid="uid://b1vwfmjgxp4v4" path="res://scripts/components/whitebox_platform.gd" id="plat"]
+[ext_resource type="Script" uid="uid://h4n37th0nn6i" path="res://scripts/components/player_size_guide.gd" id="player_size"]
+[ext_resource type="Script" uid="uid://8efjynrk1y42" path="res://scripts/components/spike_strip.gd" id="spike"]
+[ext_resource type="Script" uid="uid://cy4pkr26s605j" path="res://scripts/components/start_view_box.gd" id="viewbox"]
+[ext_resource type="Script" uid="uid://h7lb70pg5fa4" path="res://scripts/components/water_zone.gd" id="water"]
 
-[node name="Level2" type="Node2D"]
+[node name="Level2" type="Node2D" unique_id=86263308]
 
-[node name="Route" type="Node2D" parent="."]
+[node name="Route" type="Node2D" parent="." unique_id=604913578]
 
-[node name="Blocks" type="Node2D" parent="."]
+[node name="Blocks" type="Node2D" parent="." unique_id=903151318]
 
-[node name="Hazards" type="Node2D" parent="."]
-
-[node name="Markers" type="Node2D" parent="."]
-
-[node name="Guides" type="Node2D" parent="."]
-
-[node name="Labels" type="Node2D" parent="."]
-
-[node name="Actors" type="Node2D" parent="."]
-
-[node name="StartViewBox" type="Node2D" parent="Guides"]
-position = Vector2(0, 20)
-script = ExtResource("viewbox")
-size = Vector2(1250, 380)
-
-[node name="JumpArcGuide_Arc_Scene1" type="Node2D" parent="Guides"]
-position = Vector2(110, 445)
-script = ExtResource("jump_arc")
-direction = 1
-simulation_time = 0.9
-horizontal_speed_scale = 1.0
-
-[node name="JumpArcGuide_Arc_Scene2" type="Node2D" parent="Guides"]
-position = Vector2(2210, 555)
-script = ExtResource("jump_arc")
-direction = 1
-simulation_time = 0.95
-horizontal_speed_scale = 1.0
-
-[node name="SpawnPoint" type="Marker2D" parent="Markers"]
-position = Vector2(120, 430)
-
-[node name="ReturnSpawnPoint" type="Marker2D" parent="Markers"]
-position = Vector2(3470, 300)
-
-[node name="Checkpoint" type="Area2D" parent="Markers"]
-position = Vector2(120, 430)
-script = ExtResource("checkpoint")
-
-[node name="ExitGate" type="Area2D" parent="Markers"]
-position = Vector2(3600, 290)
-script = ExtResource("exit")
-
-[node name="Route" type="Label" parent="Labels"]
-position = Vector2(60, 120)
-text = "Route: PPT5-6/user mark. Scene1 and Scene2 merged; not every segment consumes jump. Use drop/inertia/water push, jump x9 budget."
-
-[node name="Scene1" type="Node2D" parent="Guides"]
-position = Vector2(0, 0)
-
-[node name="Scene2" type="Node2D" parent="Guides"]
-position = Vector2(1300, 0)
-
-[node name="S1_StartHigh" type="StaticBody2D" parent="Blocks"]
-position = Vector2(0, 470)
+[node name="S1_StartHigh" type="StaticBody2D" parent="Blocks" unique_id=391173149]
+position = Vector2(0, 452)
 script = ExtResource("plat")
-size = Vector2(190, 36)
+size = Vector2(158.33, 30)
 
-[node name="S1_LowStep" type="StaticBody2D" parent="Blocks"]
-position = Vector2(350, 535)
+[node name="S1_LowStep" type="StaticBody2D" parent="Blocks" unique_id=1437602600]
+position = Vector2(275, 524)
 script = ExtResource("plat")
-size = Vector2(175, 30)
+size = Vector2(90, 30)
 
-[node name="S1_FloatSmall" type="StaticBody2D" parent="Blocks"]
-position = Vector2(730, 475)
+[node name="S1_FloatSmall" type="StaticBody2D" parent="Blocks" unique_id=423862754]
+position = Vector2(961, 369)
 script = ExtResource("plat")
-size = Vector2(110, 28)
+size = Vector2(117.86, 30)
 
-[node name="S1_PinkRecovery" type="StaticBody2D" parent="Blocks"]
-position = Vector2(500, 690)
+[node name="S1_PinkRecovery" type="StaticBody2D" parent="Blocks" unique_id=2016855266]
+position = Vector2(821, -93)
 script = ExtResource("plat")
 size = Vector2(240, 30)
 
-[node name="S1_StarPerch" type="StaticBody2D" parent="Blocks"]
+[node name="S1_StarPerch" type="StaticBody2D" parent="Blocks" unique_id=574838249]
 position = Vector2(1880, 135)
 script = ExtResource("plat")
-size = Vector2(170, 28)
+size = Vector2(182.14, 30)
 
-[node name="S1_EndTiny" type="StaticBody2D" parent="Blocks"]
-position = Vector2(985, 430)
+[node name="S1_EndTiny" type="StaticBody2D" parent="Blocks" unique_id=1413073589]
+position = Vector2(1171, -56)
 script = ExtResource("plat")
-size = Vector2(100, 26)
+size = Vector2(115.38, 30)
 
-[node name="S1_DropMomentum" type="StaticBody2D" parent="Blocks"]
-position = Vector2(510, 690)
+[node name="S1_DropMomentum" type="StaticBody2D" parent="Blocks" unique_id=1210085090]
+position = Vector2(513, 637)
 script = ExtResource("collapse")
 size = Vector2(240, 30)
 collapse_delay = 0.55
 
-[node name="S1_GreenMoveHigh" type="AnimatableBody2D" parent="Blocks"]
+[node name="S1_GreenMoveHigh" type="AnimatableBody2D" parent="Blocks" unique_id=848935481]
 position = Vector2(1180, 505)
 script = ExtResource("move")
-size = Vector2(230, 28)
+size = Vector2(246.43, 30)
+color = Color(0.45, 1, 0.25, 1)
 offset = Vector2(260, 0)
 speed = 95.0
-color = Color(0.45, 1.0, 0.25, 1.0)
 
-[node name="S1_GreenMoveLow" type="AnimatableBody2D" parent="Blocks"]
+[node name="S1_GreenMoveLow" type="AnimatableBody2D" parent="Blocks" unique_id=845684413]
 position = Vector2(1585, 620)
 script = ExtResource("move")
-size = Vector2(230, 28)
+size = Vector2(246.43, 30)
+color = Color(0.45, 1, 0.25, 1)
 offset = Vector2(260, 0)
 speed = 100.0
-color = Color(0.45, 1.0, 0.25, 1.0)
 
-[node name="S1_NoJumpGlide_Landing" type="StaticBody2D" parent="Blocks"]
+[node name="S1_NoJumpGlide_Landing" type="StaticBody2D" parent="Blocks" unique_id=1988328995]
 position = Vector2(1835, 610)
 script = ExtResource("plat")
-size = Vector2(130, 28)
+size = Vector2(139.29, 30)
 
-[node name="S2_StartStep" type="StaticBody2D" parent="Blocks"]
-position = Vector2(2160, 560)
+[node name="S2_StartStep" type="StaticBody2D" parent="Blocks" unique_id=387766633]
+position = Vector2(2150, 566)
 script = ExtResource("plat")
-size = Vector2(190, 34)
+size = Vector2(167.65, 30)
 
-[node name="S2_LeftWall" type="StaticBody2D" parent="Blocks"]
+[node name="S2_LeftWall" type="StaticBody2D" parent="Blocks" unique_id=111449915]
 position = Vector2(2265, 365)
 script = ExtResource("plat")
 size = Vector2(55, 230)
 
-[node name="S2_TopFromWall" type="StaticBody2D" parent="Blocks"]
+[node name="S2_TopFromWall" type="StaticBody2D" parent="Blocks" unique_id=389413430]
 position = Vector2(2320, 365)
 script = ExtResource("plat")
 size = Vector2(175, 30)
 
-[node name="S2_TinyMid" type="StaticBody2D" parent="Blocks"]
-position = Vector2(2570, 455)
+[node name="S2_TinyMid" type="StaticBody2D" parent="Blocks" unique_id=435851387]
+position = Vector2(2790, -101)
 script = ExtResource("plat")
-size = Vector2(120, 26)
+size = Vector2(138.46, 30)
 
-[node name="S2_EndWall" type="StaticBody2D" parent="Blocks"]
-position = Vector2(3420, 420)
+[node name="S2_EndWall" type="StaticBody2D" parent="Blocks" unique_id=1662478288]
+position = Vector2(3980, 424)
 script = ExtResource("plat")
 size = Vector2(220, 240)
 
-[node name="S2_ExitTop" type="StaticBody2D" parent="Blocks"]
-position = Vector2(3520, 335)
+[node name="S2_ExitTop" type="StaticBody2D" parent="Blocks" unique_id=2035213445]
+position = Vector2(4051, 425)
 script = ExtResource("plat")
-size = Vector2(130, 34)
+size = Vector2(114.71, 30)
 
-[node name="S2_OrangeInWater" type="AnimatableBody2D" parent="Blocks"]
+[node name="S2_OrangeInWater" type="AnimatableBody2D" parent="Blocks" unique_id=1596841135]
 position = Vector2(2450, 665)
 script = ExtResource("move")
-size = Vector2(260, 30)
+size = Vector2(120, 30)
 offset = Vector2(260, 0)
 speed = 105.0
+bounce_height = 450.0
 
-[node name="S2_GreenHigh" type="AnimatableBody2D" parent="Blocks"]
+[node name="S2_GreenHigh" type="AnimatableBody2D" parent="Blocks" unique_id=497041477]
 position = Vector2(2860, 455)
 script = ExtResource("move")
-size = Vector2(145, 26)
+size = Vector2(167.31, 30)
+color = Color(0.45, 1, 0.25, 1)
 offset = Vector2(190, 0)
 speed = 100.0
-color = Color(0.45, 1.0, 0.25, 1.0)
 
-[node name="S2_GreenMid" type="AnimatableBody2D" parent="Blocks"]
+[node name="S2_GreenMid" type="AnimatableBody2D" parent="Blocks" unique_id=321941258]
 position = Vector2(3010, 575)
 script = ExtResource("move")
-size = Vector2(235, 28)
+size = Vector2(251.79, 30)
+color = Color(0.45, 1, 0.25, 1)
 offset = Vector2(230, 0)
 speed = 95.0
-color = Color(0.45, 1.0, 0.25, 1.0)
 
-[node name="S2_PinkSave" type="StaticBody2D" parent="Blocks"]
-position = Vector2(3240, 700)
+[node name="S2_PinkSave" type="StaticBody2D" parent="Blocks" unique_id=1263554929]
+position = Vector2(3599, 673)
 script = ExtResource("collapse")
-size = Vector2(170, 28)
+size = Vector2(240, 30)
 collapse_delay = 0.55
 
-[node name="W_MainWater" type="Area2D" parent="Hazards"]
+[node name="Hazards" type="Node2D" parent="." unique_id=2029202146]
+
+[node name="W_MainWater" type="Area2D" parent="Hazards" unique_id=564986262]
 position = Vector2(0, 725)
 script = ExtResource("water")
 size = Vector2(3660, 110)
-push_force = Vector2(145, 0)
+push_force = Vector2(100, 0)
 
-[node name="W_MidRiver" type="Area2D" parent="Hazards"]
-position = Vector2(2320, 560)
+[node name="W_MidRiver" type="Area2D" parent="Hazards" unique_id=480752131]
+position = Vector2(2882, 558)
 script = ExtResource("water")
 size = Vector2(1100, 96)
-push_force = Vector2(140, 0)
+push_force = Vector2(100, 0)
 
-[node name="S_Water_A" type="Area2D" parent="Hazards"]
+[node name="S_Water_A" type="Area2D" parent="Hazards" unique_id=461078289]
 position = Vector2(130, 748)
 script = ExtResource("spike")
 count = 2
-direction = "up"
 
-[node name="S_Water_B" type="Area2D" parent="Hazards"]
+[node name="S_Water_B" type="Area2D" parent="Hazards" unique_id=1013128585]
 position = Vector2(930, 748)
 script = ExtResource("spike")
-count = 3
-direction = "up"
 
-[node name="S_Water_C" type="Area2D" parent="Hazards"]
+[node name="S_Water_C" type="Area2D" parent="Hazards" unique_id=1922319732]
 position = Vector2(2020, 748)
 script = ExtResource("spike")
-count = 3
-direction = "up"
 
-[node name="S_S2Water_A" type="Area2D" parent="Hazards"]
+[node name="S_S2Water_A" type="Area2D" parent="Hazards" unique_id=28761278]
 position = Vector2(2475, 748)
 script = ExtResource("spike")
-count = 3
-direction = "up"
 
-[node name="S_S2Water_B" type="Area2D" parent="Hazards"]
+[node name="S_S2Water_B" type="Area2D" parent="Hazards" unique_id=1620796711]
 position = Vector2(3280, 748)
 script = ExtResource("spike")
 count = 2
-direction = "up"
 
-[node name="S_FinalWallTeeth" type="Area2D" parent="Hazards"]
-position = Vector2(3395, 520)
-script = ExtResource("spike")
-count = 3
+[node name="S_FinalWallTeeth" type="Area2D" parent="Hazards" unique_id=1978658381]
+position = Vector2(3917, 560)
+script = ExtResource("moving_spike")
 direction = "left"
+offset = Vector2(-1080, 0)
+speed = 135.0
 
-[node name="JumpPlanScene1" type="Label" parent="Labels"]
-position = Vector2(70, 160)
+[node name="Markers" type="Node2D" parent="." unique_id=2127108574]
+
+[node name="SpawnPoint" type="Marker2D" parent="Markers" unique_id=24341416]
+position = Vector2(39, 401)
+
+[node name="ReturnSpawnPoint" type="Marker2D" parent="Markers" unique_id=59356754]
+position = Vector2(4001, 390)
+
+[node name="Checkpoint" type="Area2D" parent="Markers" unique_id=1583551560]
+position = Vector2(39, 401)
+script = ExtResource("checkpoint")
+
+[node name="ExitGate" type="Area2D" parent="Markers" unique_id=679417877]
+position = Vector2(4131, 380)
+script = ExtResource("exit")
+
+[node name="Guides" type="Node2D" parent="." unique_id=1538974362]
+
+[node name="StartViewBox" type="Node2D" parent="Guides" unique_id=1202556045]
+position = Vector2(0, 20)
+script = ExtResource("viewbox")
+size = Vector2(1250, 380)
+
+[node name="PlayerSizeGuide_Reference" type="Node2D" parent="Guides" unique_id=249108703]
+position = Vector2(39, 401)
+script = ExtResource("player_size")
+
+[node name="JumpArcGuide_Arc_Scene1" type="Node2D" parent="Guides" unique_id=1258284613]
+position = Vector2(567, 584)
+script = ExtResource("jump_arc")
+simulation_time = 0.9
+
+[node name="JumpArcGuide_Arc_Scene2" type="Node2D" parent="Guides" unique_id=727367992]
+position = Vector2(1945, 396)
+script = ExtResource("jump_arc")
+
+[node name="Scene1" type="Node2D" parent="Guides" unique_id=1752536036]
+
+[node name="Scene2" type="Node2D" parent="Guides" unique_id=210134521]
+position = Vector2(1300, 0)
+
+[node name="Labels" type="Node2D" parent="." unique_id=1074082876]
+
+[node name="Route" type="Label" parent="Labels" unique_id=645138238]
+offset_left = 60.0
+offset_top = 120.0
+offset_right = 60.0
+offset_bottom = 120.0
+text = "Route: PPT5-6/user mark. Scene1 and Scene2 merged; not every segment consumes jump. Use drop/inertia/water push, jump x9 budget."
+
+[node name="JumpPlanScene1" type="Label" parent="Labels" unique_id=363677937]
+offset_left = 70.0
+offset_top = 160.0
+offset_right = 70.0
+offset_bottom = 160.0
 text = "Scene1: start fall to low step; J1 to small float; DropMomentum to pink; J2 climb back; glide to green movers; NoJumpGlide into Scene2."
 
-[node name="JumpPlanScene2" type="Label" parent="Labels"]
-position = Vector2(2130, 160)
+[node name="JumpPlanScene2" type="Label" parent="Labels" unique_id=1172703067]
+offset_left = 2130.0
+offset_top = 160.0
+offset_right = 2130.0
+offset_bottom = 160.0
 text = "Scene2: J4/J5 wall steps, J7/J8 green movers, water/inertia fallback, J9_FinalClimb to exit."
 
-[node name="J9_FinalClimb" type="Label" parent="Labels"]
-position = Vector2(3360, 260)
+[node name="J9_FinalClimb" type="Label" parent="Labels" unique_id=305338508]
+offset_left = 3360.0
+offset_top = 260.0
+offset_right = 3360.0
+offset_bottom = 260.0
 text = "J9_FinalClimb"
 
-[node name="PPTTag" type="Label" parent="Labels"]
-position = Vector2(80, 205)
+[node name="PPTTag" type="Label" parent="Labels" unique_id=1667127992]
+offset_left = 80.0
+offset_top = 205.0
+offset_right = 80.0
+offset_bottom = 205.0
 text = "Second level has 2 scenes. Some red path parts are falling or inertia, not mandatory jump presses."
+
+[node name="Actors" type="Node2D" parent="." unique_id=488712341]
