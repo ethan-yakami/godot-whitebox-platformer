@@ -7,7 +7,7 @@ signal limit_denied(action: String)
 signal void_recover
 
 @export var speed := 256.0
-@export var jump_velocity := -640.0
+@export var jump_velocity := -832.0
 @export var dash_speed := 720.0
 @export var dash_duration := 0.14
 @export var dash_cooldown := 0.5

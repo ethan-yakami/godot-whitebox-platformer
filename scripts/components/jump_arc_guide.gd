@@ -6,7 +6,7 @@ class_name JumpArcGuide
 	set(value):
 		player_speed = value
 		queue_redraw()
-@export var jump_velocity := -640.0:
+@export var jump_velocity := -832.0:
 	set(value):
 		jump_velocity = value
 		queue_redraw()
@@ -38,6 +38,14 @@ class_name JumpArcGuide
 	set(value):
 		horizontal_speed_scale = maxf(0.0, value)
 		queue_redraw()
+@export var show_player_samples := true:
+	set(value):
+		show_player_samples = value
+		queue_redraw()
+@export var player_sample_count := 5:
+	set(value):
+		player_sample_count = maxi(1, value)
+		queue_redraw()
 @export var show_labels := true:
 	set(value):
 		show_labels = value
@@ -68,9 +76,14 @@ func _draw() -> void:
 	if not Engine.is_editor_hint():
 		return
 	var horizontal_speed := player_speed * horizontal_speed_scale * float(direction)
-	_draw_player_box()
-	_draw_arc(_make_jump_points(horizontal_speed, jump_velocity, simulation_time), normal_jump_color, "normal jump")
-	_draw_arc(_make_jump_points(horizontal_speed, 0.0, fall_time), fall_inertia_color, "fall / inertia")
+	var normal_jump_points := _make_jump_points(horizontal_speed, jump_velocity, simulation_time)
+	var fall_inertia_points := _make_jump_points(horizontal_speed, 0.0, fall_time)
+	_draw_player_box(Vector2.ZERO, player_box_fill_color, player_box_outline_color, true)
+	_draw_arc(normal_jump_points, normal_jump_color, "normal jump")
+	_draw_arc(fall_inertia_points, fall_inertia_color, "fall / inertia")
+	if show_player_samples:
+		_draw_player_samples(normal_jump_points, normal_jump_color)
+		_draw_player_samples(fall_inertia_points, fall_inertia_color)
 	_draw_landing_band(horizontal_speed)
 
 
@@ -105,12 +118,31 @@ func _draw_landing_band(horizontal_speed: float) -> void:
 		draw_string(ThemeDB.fallback_font, Vector2(max_x * sign + 10.0 * sign, y + 18.0), "comfort landing", HORIZONTAL_ALIGNMENT_LEFT, -1.0, 14, Color(1.0, 0.85, 0.15, 0.9))
 
 
-func _draw_player_box() -> void:
-	var rect := Rect2(-player_size * 0.5, player_size)
-	draw_rect(rect, player_box_fill_color, true)
-	draw_rect(rect, player_box_outline_color, false, 4.0)
-	draw_line(Vector2(-player_size.x * 0.5, 0), Vector2(player_size.x * 0.5, 0), player_box_outline_color, 2.0)
-	draw_line(Vector2(0, -player_size.y * 0.5), Vector2(0, player_size.y * 0.5), player_box_outline_color, 2.0)
-	draw_circle(Vector2.ZERO, 6.0, Color(1.0, 0.05, 0.05, 1.0))
-	if show_labels:
+func _draw_player_samples(points: PackedVector2Array, color: Color) -> void:
+	if points.size() < 2:
+		return
+	var stride := maxi(1, int(points.size() / player_sample_count))
+	var drawn := 0
+	for index in range(stride, points.size(), stride):
+		if drawn >= player_sample_count:
+			return
+		var fill := Color(color.r, color.g, color.b, 0.12)
+		var outline := Color(color.r, color.g, color.b, 0.55)
+		_draw_player_box(points[index], fill, outline, false)
+		drawn += 1
+
+
+func _draw_player_box(
+	center := Vector2.ZERO,
+	fill_color := Color(0.0, 0.95, 1.0, 0.32),
+	outline_color := Color(1.0, 1.0, 1.0, 1.0),
+	is_origin_box := true
+) -> void:
+	var rect := Rect2(center - player_size * 0.5, player_size)
+	draw_rect(rect, fill_color, true)
+	draw_rect(rect, outline_color, false, 4.0 if is_origin_box else 2.0)
+	draw_line(Vector2(center.x - player_size.x * 0.5, center.y), Vector2(center.x + player_size.x * 0.5, center.y), outline_color, 2.0 if is_origin_box else 1.0)
+	draw_line(Vector2(center.x, center.y - player_size.y * 0.5), Vector2(center.x, center.y + player_size.y * 0.5), outline_color, 2.0 if is_origin_box else 1.0)
+	draw_circle(center, 6.0 if is_origin_box else 3.0, Color(1.0, 0.05, 0.05, 1.0) if is_origin_box else outline_color)
+	if show_labels and is_origin_box:
 		draw_string(ThemeDB.fallback_font, Vector2(player_size.x * 0.5 + 8, -8), "player center", HORIZONTAL_ALIGNMENT_LEFT, -1.0, 13, player_box_outline_color)

@@ -25,6 +25,7 @@ def main() -> int:
         "limit_denied",
         "void_recover",
         "GameState.has_attack",
+        "jump_velocity := -832.0",
     ])
     failures += require("scripts/game_state.gd", [
         "var max_ghosts := 2",
@@ -113,10 +114,13 @@ def main() -> int:
         "@tool",
         "class_name JumpArcGuide",
         "player_speed := 256.0",
-        "jump_velocity := -640.0",
+        "jump_velocity := -832.0",
         "gravity := 1600.0",
         "player_size := Vector2(48, 64)",
+        "show_player_samples",
+        "player_sample_count",
         "_draw_player_box",
+        "_draw_player_samples",
         "normal_jump_color",
         "fall_inertia_color",
         "player_box_fill_color",
