@@ -82,6 +82,7 @@ func load_level(level_number: int) -> void:
 	var scene_path: String = LEVEL_SCENES[GameState.current_level]
 	current_level_scene = load(scene_path).instantiate()
 	level_root.add_child(current_level_scene)
+	_apply_level_layout_overrides(current_level_scene)
 	_wire_level_scene(current_level_scene)
 	limiter.configure(LevelDataScript.get_limits(GameState.current_level, GameState.phase))
 	var spawn := _get_level_spawn()
@@ -100,6 +101,27 @@ func _wire_level_scene(root: Node) -> void:
 		elif node is Enemy:
 			node.player = player
 			node.defeated.connect(_on_enemy_defeated)
+
+
+func _apply_level_layout_overrides(root: Node) -> void:
+	var path := "res://levels/layout_overrides_level_%d.json" % GameState.current_level
+	if not FileAccess.file_exists(path):
+		return
+	var parsed = JSON.parse_string(FileAccess.get_file_as_string(path))
+	if typeof(parsed) != TYPE_DICTIONARY:
+		return
+	for node in root.find_children("*", "", true, false):
+		if not parsed.has(node.name):
+			continue
+		var entry: Dictionary = parsed[node.name]
+		if entry.has("position") and node is Node2D:
+			node.global_position = Vector2(entry["position"][0], entry["position"][1])
+		if entry.has("size") and "size" in node:
+			node.set("size", Vector2(entry["size"][0], entry["size"][1]))
+		if entry.has("offset") and "offset" in node:
+			node.set("offset", Vector2(entry["offset"][0], entry["offset"][1]))
+		if entry.has("count") and "count" in node:
+			node.set("count", int(entry["count"]))
 
 
 func set_pause(value: bool) -> void:

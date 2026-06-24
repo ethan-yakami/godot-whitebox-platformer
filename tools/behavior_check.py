@@ -54,6 +54,21 @@ def main() -> int:
         "exit_position + Vector2(-120, 0)",
         'limiter.configure({})',
         "_on_stone_activated",
+        "_apply_level_layout_overrides",
+    ])
+    failures += require("scripts/level_editor.gd", [
+        "class_name LevelEditor",
+        "LEVEL_SCENES",
+        "_selected",
+        "_resize_mode",
+        "_save_layout",
+        "_load_layout_overrides",
+        "Ctrl+S",
+        "has_method(\"set\")",
+    ])
+    failures += require("scenes/level_editor.tscn", [
+        "LevelEditor",
+        "res://scripts/level_editor.gd",
     ])
     for level in range(1, 6):
         failures += require(f"levels/level_{level}.tscn", [

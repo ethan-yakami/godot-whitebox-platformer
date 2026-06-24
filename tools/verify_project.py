@@ -6,7 +6,9 @@ ROOT = Path(__file__).resolve().parents[1]
 REQUIRED_FILES = [
     "project.godot",
     "scenes/main.tscn",
+    "scenes/level_editor.tscn",
     "scripts/main.gd",
+    "scripts/level_editor.gd",
     "scripts/player.gd",
     "scripts/game_state.gd",
     "scripts/input_limiter.gd",
